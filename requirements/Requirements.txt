@@ -8,6 +8,7 @@
 * Permitir una baja de un usuario confirmado, ante esta baja avisar a los que no pudieron confirmarse para que lo puedan hacer
 * Que los usuarios puedan ingresar comentarios tanto del lugar, como en el evento
 * Estadisticas de eventos, fiabilidad de usuarios , concurrencia sobre invitaciones, etc.
+
 - No funcionales
 * Deploy en Google App Engine
 * Integracion con google calendar
