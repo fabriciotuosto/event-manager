@@ -8,7 +8,10 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 /**
- *
+ * Provides {@link EntityManager} instances
+ * based on "event-manager" persistent unit
+ * it only creates one {@link EntityManagerFactory}
+ * because it is expensive to create
  * @author fabricio
  *
  */
@@ -21,6 +24,7 @@ public class EntityManagerProvider implements Provider<EntityManager>
 	private final EntityManagerFactory factory;
 
 	public EntityManagerProvider() {
+		// Instantiate jpa EntityManagerFactory
 		factory = Persistence.createEntityManagerFactory("event-manager");
 	}
 

@@ -29,7 +29,7 @@ public class PerformanceInterceptor implements MethodInterceptor
 			result = arg0.proceed();
 		} finally{
 			watch.stop();
-			logger.info("{} -> finished in {}ms", arg0.getMethod().getName(),watch.toString());
+			logger.info("{} -> finished in {}ms",arg0.getMethod().getName(),watch.toString());
 		}
 		return result;
 	}
