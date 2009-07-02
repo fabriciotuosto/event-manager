@@ -1,201 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-         <modelVersion>4.0.0</modelVersion>
-	     <groupId>org.event.manager</groupId>
-         <artifactId>event-manager</artifactId>
-         <packaging>pom</packaging>
-         <name>Event Manager</name>
-	     <version>${application.version}</version>
-         <distributionManagement>
-            <site>
-                <id>olga</id>
-	 	<url>scp://elendir.dyndns.org:22/var/www/docs/event-manager/parent-pom/</url>
-            </site>
-            <repository>
-                <id>artifactory</id>
-                <name>olga-releases</name>
-                <url>http://elendir.dyndns.org:80/artifactory/libs-releases-local</url>
-            </repository>                
-         </distributionManagement>
-         <build>
-                 <plugins>
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-compiler-plugin</artifactId>
-                                 <version>2.0.2</version>
-                                 <configuration>
-                                         <source>1.6</source>
-                                         <target>1.6</target>
-                                 </configuration>
-                         </plugin>
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-eclipse-plugin</artifactId>
-                                 <configuration>
-                                         <wtpversion>2.0</wtpversion>
-                                         <downloadSources>true</downloadSources>
-                                         <downloadJavaDoc>true</downloadJavaDoc>
-                                         <projectNameTemplate>${artifactId}-${version}</projectNameTemplate>
-                                 </configuration>
-                         </plugin>
- 
-                         <plugin>
-                                 <groupId>org.codehaus.mojo</groupId>
-                                 <artifactId>cobertura-maven-plugin</artifactId>
-                                 <version>2.2</version>
-                                 <configuration>
-                                         <maven.cobertura.dir>/target/cobertura</maven.cobertura.dir>
-                                 </configuration>
-                         </plugin>
-                         <plugin>
-                                 <artifactId>maven-javadoc-plugin</artifactId>
-                                 <configuration>
-                                         <source>1.6</source>
-                                         <aggregate>true</aggregate>
-                                         <doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
-                                         <docletArtifact>
-                                                 <groupId>gr.spinellis</groupId>
-                                                 <artifactId>UmlGraph</artifactId>
-                                                 <version>4.6</version>
-                                         </docletArtifact>
-                                         <additionalparam>-inferrel -inferdep -all -hide java.*
-                                                 -collpackages java.util.* -qualify -postfixpackage -nodefontsize 9
-                                                 -nodefontpackagesize 7</additionalparam>
-                                         <destDir>${artifactId}/uml</destDir>
-                                         <show>private</show>
-                                 </configuration>
-                         </plugin>
-                         <plugin>
-                                 <artifactId>maven-release-plugin</artifactId>
-                                 <version>2.0-beta-8</version>
-                                 <configuration>
-                                         <goals>install scm:update scm:tag -DaddTimestamp=true
-                                                 -DtimestampPrefix=_ -DtimestampFormat=yyyyMMdd assembly:attached
-                                                 deploy -Dmaven.test.skip=true -DignoreMissingDescriptor=true</goals>
-                                         <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
-                                         <preparationGoals>clean</preparationGoals>
-                                 </configuration>
-                         </plugin>
-                 </plugins>
-         </build>
- 
-         <reporting>
-		 <plugins>
-			 <!--
-			 <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-checkstyle-plugin</artifactId>
-                                 <configuration>
-                                         <configLocation>/checkstyle/apache-checkstyle.xml</configLocation>
-                                 </configuration>
-			 </plugin> -->
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-changes-plugin</artifactId>
-                                 <version>2.1</version>
-                         </plugin>
-                         <!-- Configuracion de javadoc. -->
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-javadoc-plugin</artifactId>
-                                 <configuration>
-                                         <quiet>true</quiet>
-                                 </configuration>
-                         </plugin>
-                         <!-- Configuracion PMD-CPD. -->
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-pmd-plugin</artifactId>
-                                 <configuration>
-                                         <targetJdk>1.6</targetJdk>
-                                 </configuration>
-                         </plugin>
-                         <!-- Surefire  -->
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-surefire-report-plugin</artifactId>
-                         </plugin>
-                         <!-- Source cross . -->
-                         <plugin>
-                                 <groupId>org.apache.maven.plugins</groupId>
-                                 <artifactId>maven-jxr-plugin</artifactId>
-                         </plugin>
-                         <!-- Taglist . -->
-                         <plugin>
-                                 <groupId>org.codehaus.mojo</groupId>
-                                 <artifactId>taglist-maven-plugin</artifactId>
-                         </plugin>
-                         <!-- Cobertura Version 2.1 de este plugin tiene un bug  -->
-                         <plugin>
-                                 <groupId>org.codehaus.mojo</groupId>
-                                 <artifactId>cobertura-maven-plugin</artifactId>
-                                 <version>2.2</version>
-                         </plugin>
-                         <!-- Javancss 
-                         <plugin>
-                                 <groupId>org.codehaus.mojo</groupId>
-                                 <artifactId>javancss-maven-plugin</artifactId>
-	                 </plugin>-->
-                         <!-- JDepend . -->
-                         <plugin>
-                                 <groupId>org.codehaus.mojo</groupId>
-                                 <artifactId>jdepend-maven-plugin</artifactId>
-                         </plugin>
-                         <plugin>
-                                 <groupId>org.codehaus.mojo</groupId>
-                                 <artifactId>findbugs-maven-plugin</artifactId>
-                                 <version>1.2</version>
-                                 <configuration>
-                                         <xmlOutput>true</xmlOutput>
-                                         <threshold>Low</threshold>
-                                         <effort>Default</effort>
-                                         <relaxed>true</relaxed>
-                                         <findbugsXmlOutput>true</findbugsXmlOutput>
-                                 </configuration>
-                         </plugin>
-                 </plugins>
-	 </reporting>
-	 <dependencies>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons-lang.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.collections</groupId>
-            <artifactId>google-collections</artifactId>
-            <version>${google-collections.version}</version>
-        </dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.event.manager</groupId>
+	<artifactId>event-manager</artifactId>
+	<packaging>pom</packaging>
+	<name>Event Manager</name>
+	<version>${application.version}</version>
+	<distributionManagement>
+		<site>
+			<id>apache</id>
+			<url>scp://elendir.dyndns.org:443/var/www/docs/event-manager/</url>
+		</site>
+		<repository>
+			<id>artifactory</id>
+			<name>olga-releases</name>
+			<url>http://elendir.dyndns.org:80/artifactory/libs-releases-local</url>
+		</repository>
+	</distributionManagement>
+	<scm>
+		<connection>scm:git:http://elendir.dyndns.org/git/event-manager/source</connection>
+		<developerConnection>scm:git:http://elendir.dyndns.org/git/event-manager/source</developerConnection>
+		<url>http://elendir.dyndns.org/git-web/?p=event-manager</url>
+	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+					<downloadJavaDoc>true</downloadJavaDoc>
+					<projectNameTemplate>${artifactId}-${version}</projectNameTemplate>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<maven.cobertura.dir>/target/cobertura</maven.cobertura.dir>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<aggregate>true</aggregate>
+					<docletArtifact>
+						<groupId>gr.spinellis</groupId>
+						<artifactId>UmlGraph</artifactId>
+						<version>4.4</version>
+					</docletArtifact>
+					<additionalparam>-views</additionalparam>
+					<destDir>${artifactId}/target/uml</destDir>
+					<show>private</show>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-8</version>
+				<configuration>
+					<goals>install scm:update scm:tag -DaddTimestamp=true
+						-DtimestampPrefix=_ -DtimestampFormat=yyyyMMdd assembly:attached
+						deploy -DignoreMissingDescriptor=true</goals>
+					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+					<preparationGoals>clean</preparationGoals>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<!--
+				<plugin> <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId> <configuration>
+				<configLocation>/checkstyle/apache-checkstyle.xml</configLocation>
+				</configuration> </plugin>
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			<!-- Configuracion de javadoc. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<quiet>true</quiet>
+				</configuration>
+			</plugin>
+			<!-- Configuracion PMD-CPD. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<targetJdk>1.6</targetJdk>
+				</configuration>
+			</plugin>
+			<!-- Surefire  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+			<!-- Source cross . -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<!-- Taglist . -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<tags>
+						<tag>TODO</tag>
+						<tag>FIXME</tag>
+					</tags>
+				</configuration>
+			</plugin>
+			<!-- Cobertura Version 2.1 de este plugin tiene un bug  -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			<!-- Javancss  -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javancss-maven-plugin</artifactId>
+				<version>2.0-beta-2</version>
+			</plugin>
+			<!-- JDepend . -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.0.1</version>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+					<!-- Optional derectory to put findbugs xdoc xml report -->
+					<xmlOutputDirectory>target/site</xmlOutputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<dependencies>
+		<!-- Utility and commons -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.collections</groupId>
+			<artifactId>google-collections</artifactId>
+			<version>${google-collections.version}</version>
+		</dependency>
+		<!-- Guice -->
+		<dependency>
+			<groupId>com.google.code.guice</groupId>
+			<artifactId>guice</artifactId>
+			<version>${guice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>${aopalliance.version}</version>
+		</dependency>
+		<!-- JPA -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>${jpa.version}</version>
+		</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.log.utils</groupId>
+			<artifactId>log-utils</artifactId>
+			<version>${logutils.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-	 <modules>
-		 <module>event-manager-api</module>
-		 <module>event-manager-web</module>
-	 </modules>
 
-	 <properties>
-		 <application.version>1.0-SNAPSHOT</application.version>
-		 <application.groupId>org.event.manager</application.groupId>
+	<modules>
+		<module>event-manager-api</module>
+		<module>event-manager-web</module>
+	</modules>
 
-		 <!-- application frameworks versions -->
-		 <junit.version>4.5</junit.version>
-         <slf4j.version>1.5.6</slf4j.version>
-         <resteasy.version>1.1.GA</resteasy.version>
-         <servlet-api.version>2.5</servlet-api.version>
-         <commons-lang.version>2.5</commons-lang.version>
-         <google-collections.version>1.0.rc2</google-collections.version>
-	 </properties>
+	<properties>
+		<!-- Application specific properties -->
+		<application.version>1.0-SNAPSHOT</application.version>
+		<application.groupId>org.event.manager</application.groupId>
+		<!-- application frameworks versions -->
+		<junit.version>4.5</junit.version>
+		<mockito.version>1.7</mockito.version>
+		<slf4j.version>1.5.6</slf4j.version>
+		<logutils.version>1.0</logutils.version>
+		<resteasy.version>1.1.GA</resteasy.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<google-collections.version>1.0-rc2</google-collections.version>
+		<hibernate.version>3.4.0.GA</hibernate.version>
+		<jpa.version>1.0</jpa.version>
+		<guice.version>1.0</guice.version>
+		<aopalliance.version>1.0</aopalliance.version>
+	</properties>
 </project>
 

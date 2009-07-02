@@ -11,16 +11,28 @@
     <modelVersion>4.0.0</modelVersion>
 	<artifactId>event-manager-web</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>${application.version}</version>
 	<name>Event Manager Web Interface</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+    <!-- Business logic dependency -->
+    <dependency>
+      <groupId>${application.groupId}</groupId>
+      <artifactId>event-manager-api</artifactId>
+      <version>${application.version}</version>    
+    </dependency>
+		<!-- Web Container dependencies -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.0</version>
+		</dependency> 	
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>${servlet-api.version}</version>
+        <scope>runtime</scope>
+    </dependency>
 		<!-- core library -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -51,19 +63,6 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-guice</artifactId>
 			<version>${resteasy.version}</version>
-		</dependency>  
+		</dependency> 
 	</dependencies>
-	<build>
-		<finalName>event-manager-web</finalName>
-		<plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-        </plugins>
-	</build>
 </project>
