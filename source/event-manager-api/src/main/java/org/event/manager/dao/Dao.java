@@ -18,14 +18,14 @@ import com.google.inject.Injector;
  * 
  * @author fabricio
  * 
- *         {@link Dao} provides methods to interact easily with entity manager
- *         if this class was not provided by {@link Injector} then transaction
- *         and performance logging is in hands of the client class if you use it
- *         with Guice we provide a module that configures this class and
- *         {@link EntityManager} creation This class should be used and disposed
- *         it intends to be ideally in thread local scope, this class is not
- *         thread safe and is not intend to be, because {@link EntityManager}
- *         that is the sole dependency are very cheap to create so is this class
+ * {@link Dao} provides methods to interact easily with entity manager
+ * if this class was not provided by {@link Injector} then transaction
+ * and performance logging is in hands of the client class if you use it
+ * with Guice we provide a module that configures this class and
+ * {@link EntityManager} creation This class should be used and disposed
+ * it intends to be ideally in thread local scope, this class is not
+ * thread safe and is not intend to be, because {@link EntityManager}
+ * that is the sole dependency are very cheap to create so is this class
  */
 public class Dao {
 
@@ -201,7 +201,7 @@ public class Dao {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
-		return this.<E> findByQuery(query, params, ResultStrategy.SINGLE);
+		return this.<E>findByQuery(query, params, ResultStrategy.SINGLE);
 	}
 
 	/**

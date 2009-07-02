@@ -4,12 +4,12 @@
 
 	<appender name="Console" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
+			<param name="ConversionPattern" value="%d [%t] %-5p %c %x - %m%n" />
 		</layout>
 	</appender>
 
 	<root>
-		<priority value="trace" />
+		<priority value="debug" />
 		<appender-ref ref="Console" />
 	</root>
 </log4j:configuration>

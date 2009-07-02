@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.time.StopWatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -15,6 +17,7 @@ import org.apache.commons.lang.time.StopWatch;
 public class PerformanceInterceptor implements MethodInterceptor
 {
 
+	private static final Logger logger = LoggerFactory.getLogger(PerformanceInterceptor.class);
 	/**
 	 * Measures the time of the {@link MethodInvocation}
 	 */
@@ -26,7 +29,7 @@ public class PerformanceInterceptor implements MethodInterceptor
 			result = arg0.proceed();
 		} finally{
 			watch.stop();
-			System.out.println(String.format("%s() -> %s",arg0.getMethod().getName(),watch.toString()));
+			logger.info("{} -> finished in {}ms", arg0.getMethod().getName(),watch.toString());
 		}
 		return result;
 	}

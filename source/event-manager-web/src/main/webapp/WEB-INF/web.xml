@@ -4,9 +4,15 @@
 
 <web-app>
 	<display-name>event-manager-web</display-name>
+	<!-- -->
 	<context-param>
 		<param-name>resteasy.resources</param-name>
-		<param-value></param-value>
+		<param-value>org.event.manager.UserManager</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>resteasy.guice.modules</param-name>
+		<param-value>org.event.manager.guice.module.JpaModule,org.event.manager.guice.ResourceModule</param-value>
 	</context-param>
 	<!--
 		set this if you map the Resteasy servlet to something other than
@@ -20,9 +26,13 @@
 		<param-name>resteasy.scan</param-name>
 		<param-value>true</param-value>
 	</context-param>
+
 	<listener>
-		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+		<listener-class>
+			org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
+		</listener-class>
 	</listener>
+	
 
 	<servlet>
 		<servlet-name>Resteasy</servlet-name>
