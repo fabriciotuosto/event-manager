@@ -29,7 +29,11 @@
 			<version>${hibernate.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>${application.groupId}</groupId>
+			<artifactId>event-manager-utils</artifactId>
+			<version>${application.version}</version>
+		</dependency>
 		<!-- Database Drivers -->
 		<dependency>
 			<groupId>hsqldb</groupId>

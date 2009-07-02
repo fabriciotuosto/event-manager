@@ -218,6 +218,7 @@
 	</dependencies>
 
 	<modules>
+		<module>event-manager-utils</module>
 		<module>event-manager-api</module>
 		<module>event-manager-web</module>
 	</modules>
