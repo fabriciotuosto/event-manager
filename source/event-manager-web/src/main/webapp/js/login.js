@@ -1,5 +1,7 @@
 $(function() {
 
+    $("body").html("<div id='dialog' title='Login'><p id='validateTips'>All form fields are required.</p><form action='/event-manager/services/admin/login' method='post'><label for='name'>Name</label><input type='text' name='name' id='name' class='text ui-widget-content ui-corner-all' /><label for='password'>Password</label><input type='password' name='password' id='password' value='' class='text ui-widget-content ui-corner-all' /></form></div>");
+    
     var name = $("#name"),
     password = $("#password"),
     allFields = $([]).add(name).add(password),
@@ -32,7 +34,7 @@ $(function() {
         }
 
     }
-
+    
     $("#dialog").dialog({
         bgiframe: true,
         autoOpen: false,
@@ -43,20 +45,14 @@ $(function() {
                 var bValid = true;
                 allFields.removeClass('ui-state-error');
 
-                bValid = bValid && checkLength(name,"username",3,16);
+                bValid = bValid && checkLength(name,"name",3,16);
                 bValid = bValid && checkLength(password,"password",5,16);
 
                 bValid = bValid && checkRegexp(name,/^[a-z]([0-9a-z_])+$/i,"Username may consist of a-z, 0-9, underscores, begin with a letter.");
                 bValid = bValid && checkRegexp(password,/^([0-9a-zA-Z])+$/,"Password field only allow : a-z 0-9");
 
                 if (bValid) {
-                    //TODO here do login
-                    /*
-                    $('#users tbody').append('<tr>' +
-                        '<td>' + name.val() + '</td>' +
-                        '<td>' + password.val() + '</td>' +
-                        '</tr>');
-                     */
+                    $('#dialog form').submit();
                     $(this).dialog('close');
                 }
             },

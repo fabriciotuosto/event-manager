@@ -10,7 +10,7 @@
 	<distributionManagement>
 		<site>
 			<id>apache</id>
-			<url>scp://elendir.dyndns.org:443/var/www/docs/event-manager/</url>
+			<url>scp://elendir.dyndns.org:22/var/www/docs/event-manager/</url>
 		</site>
 		<repository>
 			<id>artifactory</id>
@@ -69,7 +69,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0-beta-8</version>
 				<configuration>
 					<goals>install scm:update scm:tag -DaddTimestamp=true
 						-DtimestampPrefix=_ -DtimestampFormat=yyyyMMdd assembly:attached
@@ -242,4 +241,3 @@
 		<aopalliance.version>1.0</aopalliance.version>
 	</properties>
 </project>
-
