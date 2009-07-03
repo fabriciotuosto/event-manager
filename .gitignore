@@ -2,7 +2,7 @@
 .project
 .classpath
 target
-bin
+**/bin
 *~
 
 /source/event-manager-web/src/main/webapp/WEB-INF/sun-web.xml
