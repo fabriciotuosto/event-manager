@@ -19,8 +19,13 @@ public class ResourceModule extends AbstractModule {
 	/**
 	 *  Resources that will be injected with google-guice
 	 */
-	ImmutableList<Class<?>> resources = ImmutableList.<Class<?>>of(UserManager.class);
-	
+	private static final ImmutableList<Class<?>> resources =
+            ImmutableList.<Class<?>>of(UserManager.class);
+
+    /**
+     *  provides resteasy to provide restfull services
+     * injected with google-guice framework
+     */
 	@Override
 	protected void configure() {
 		for(Class<?> clazz : resources){
