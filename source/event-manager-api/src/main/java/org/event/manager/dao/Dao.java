@@ -49,8 +49,8 @@ public class Dao {
 
 	/**
 	 * 
-     * @param klass 
-     * @return an instantiate {@link JpaQueryBuilder}
+         * @param klass
+         * @return an instantiate {@link JpaQueryBuilder}
 	 */
 	public JpaQueryBuilder getQueryBuilder(Class<?> klass) {
 		return new JpaQueryBuilder(em, klass);
