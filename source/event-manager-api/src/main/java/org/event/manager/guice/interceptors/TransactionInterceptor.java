@@ -20,7 +20,10 @@ public class TransactionInterceptor implements MethodInterceptor {
 	 * Provides transaction to and only to {@link Dao} object or a subclass of
 	 * {@link Dao} object. This {@link MethodInterceptor} builds a new transaction
 	 * if there isn't one active or joins to an existing one
+     * @param  arg0
+     * @throws Throwable
 	 */
+    @Override
 	public Object invoke(MethodInvocation arg0) throws Throwable {
 		Dao dao = (Dao) arg0.getThis();
 		TransactionStrategy strategy = TransactionStrategy.NEW;

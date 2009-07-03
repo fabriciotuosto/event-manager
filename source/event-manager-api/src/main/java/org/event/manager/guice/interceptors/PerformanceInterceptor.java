@@ -20,8 +20,10 @@ public class PerformanceInterceptor implements MethodInterceptor
 	private static final Logger logger = LoggerFactory.getLogger(PerformanceInterceptor.class);
 	/**
 	 * Measures the time of the {@link MethodInvocation}
+     * @param arg0
+     * @throws  Throwable
 	 */
-	public Object invoke(MethodInvocation arg0) throws Throwable {
+	@Override public Object invoke(MethodInvocation arg0) throws Throwable {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		Object result = null;

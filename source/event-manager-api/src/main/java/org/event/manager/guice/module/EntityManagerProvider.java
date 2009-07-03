@@ -29,8 +29,12 @@ public class EntityManagerProvider implements Provider<EntityManager>
 	}
 
 	/**
-	 *
-	 */
+	 * Returns a new {@link EntityManager}
+     * from the created {@link EntityManagerFactory}
+     *
+     * @return A new {@link EntityManager}
+     */
+    @Override
 	public EntityManager get() {
 		return factory.createEntityManager();
 	}

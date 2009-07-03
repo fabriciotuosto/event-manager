@@ -20,7 +20,8 @@ import com.google.inject.AbstractModule;
 public class JpaModule extends AbstractModule {
 
 	/**
-	 *
+	 * Configures the JPA configuration for this
+     * project
 	 */
 	@Override
 	protected void configure() {

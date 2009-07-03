@@ -96,8 +96,9 @@ public class JpaQueryBuilder {
 	 */
 	public JpaQueryBuilder and() {
 		where();
-		if (!builder.toString().equals("\nWHERE "))
-			builder.append("\n AND ");
+		if (!builder.toString().equals("\nWHERE ")) {
+            builder.append("\n AND ");
+        }
 		return this;
 	}
 
@@ -120,14 +121,15 @@ public class JpaQueryBuilder {
 	 */
 	public JpaQueryBuilder or() {
 		where();
-		if (!builder.toString().equals("\nWHERE "))
-			builder.append("\n OR ");
+		if (!builder.toString().equals("\nWHERE ")) {
+            builder.append("\n OR ");
+        }
 		return this;
 	}
  
 	/**
 	 * 
-	 * @param the name of the attribute to be compared
+	 * @param attribute the name of the attribute to be compared
 	 * @param value the expected value of the attribute
 	 * @return the current instance of the builder so 
 	 * client code can use chaining methods
