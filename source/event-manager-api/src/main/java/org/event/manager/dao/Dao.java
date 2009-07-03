@@ -49,7 +49,8 @@ public class Dao {
 
 	/**
 	 * 
-	 * @return an instantiate {@link JpaQueryBuilder}
+     * @param klass 
+     * @return an instantiate {@link JpaQueryBuilder}
 	 */
 	public JpaQueryBuilder getQueryBuilder(Class<?> klass) {
 		return new JpaQueryBuilder(em, klass);
@@ -197,13 +198,13 @@ public class Dao {
 	 * @return
 	 */
 	@PerforamanceLog
-	public <E> E findUniqueByQuery(Query query, Map<String, Object> params) {
+	public <E> E findUniqueByQuery(String query, Map<String, Object> params) {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
-		return this.<E>findByQuery(query, params, ResultStrategy.SINGLE);
+		return this.<E>findByQuery(em.createQuery(query), params, ResultStrategy.SINGLE);
 	}
-
+	
 	/**
 	 * 
 	 * @param <E>
@@ -212,14 +213,42 @@ public class Dao {
 	 * @return
 	 */
 	@PerforamanceLog
-	public <E> E findUniqueByQuery(String query, Map<String, Object> params) {
+	public <E> E findUniqueByQuery(Query query, Map<String, Object> params) {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
-		return this.<E> findByQuery(em.createQuery(query), params,
+		return this.<E>findByQuery(query, params, ResultStrategy.SINGLE);
+	}
+	
+	/**
+	 * 
+	 * @param <E>
+	 * @param query
+	 * @param params
+	 * @return
+	 */
+	@PerforamanceLog
+	public <E> E findUniqueByNamedQuery(String query, Map<String, Object> params) {
+		Validate.notNull(query);
+		// workaround for bug in javac compiler
+		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
+		return this.<E> findByQuery(em.createNamedQuery(query), params,
 				ResultStrategy.SINGLE);
 	}
 
+   
+	/**
+	 * 
+	 * @param <E>
+	 * @param query
+	 * @param params
+	 * @return
+	 */
+	@PerforamanceLog
+	public <E> List<E> findByNamedQuery(String query, Map<String, Object> params) {
+		Validate.notNull(query);
+		return findByQuery(em.createNamedQuery(query), params);
+	}
 	/**
 	 * 
 	 * @param <E>
