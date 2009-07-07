@@ -12,18 +12,17 @@ import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 
 /**
- * Simple class to start building some dynamic query
- * in an object oriented way without needed to use
- * hibernate criteria api, in order to abstract from
- * any implementation of jpa-api
+ * Simple class to start building some dynamic query in an object oriented way
+ * without needed to use hibernate criteria api, in order to abstract from any
+ * implementation of jpa-api
  * 
  * @author tuosto
- *
+ * 
  */
 public class JpaQueryBuilder {
 
 	private final EntityManager em;
-	private Map<String, Object> params;
+	private final Map<String, Object> params;
 	private static final String QUERY_FORMAT = "SELECT o FROM %s o %s";
 	private StringBuilder builder;
 	private String className;
@@ -38,8 +37,8 @@ public class JpaQueryBuilder {
 
 	/**
 	 * 
-	 * @return {@link Query} with parameters set
-	 * already prepared to be called within an {@link EntityManager}
+	 * @return {@link Query} with parameters set already prepared to be called
+	 *         within an {@link EntityManager}
 	 */
 	public Query build() {
 		String queryString = String.format(QUERY_FORMAT, className, builder
@@ -54,6 +53,7 @@ public class JpaQueryBuilder {
 
 	/**
 	 * Set on which kind of class the query will be performed
+	 * 
 	 * @param clazz
 	 * @return
 	 */
@@ -80,8 +80,11 @@ public class JpaQueryBuilder {
 
 	/**
 	 * added parameters to the query
-	 * @param key the name of object the attribute
-	 * @param value the expected value of the attribute
+	 * 
+	 * @param key
+	 *            the name of object the attribute
+	 * @param value
+	 *            the expected value of the attribute
 	 */
 	private void addParams(String key, Object value) {
 		if (!params.containsKey(key)) {
@@ -91,21 +94,23 @@ public class JpaQueryBuilder {
 
 	/**
 	 * adds an AND statement
-	 * @return the current instance of the builder so 
-	 * client code can use chaining methods
+	 * 
+	 * @return the current instance of the builder so client code can use
+	 *         chaining methods
 	 */
 	public JpaQueryBuilder and() {
 		where();
 		if (!builder.toString().equals("\nWHERE ")) {
-            builder.append("\n AND ");
-        }
+			builder.append("\n AND ");
+		}
 		return this;
 	}
 
 	/**
-	 *  adds a WHERE statement
-	 * @return the current instance of the builder so 
-	 * client code can use chaining methods
+	 * adds a WHERE statement
+	 * 
+	 * @return the current instance of the builder so client code can use
+	 *         chaining methods
 	 */
 	private JpaQueryBuilder where() {
 		if (builder.length() == 0) {
@@ -115,24 +120,27 @@ public class JpaQueryBuilder {
 	}
 
 	/**
-	 *  adds a WHERE statement
-	 * @return the current instance of the builder so 
-	 * client code can use chaining methods
+	 * adds a WHERE statement
+	 * 
+	 * @return the current instance of the builder so client code can use
+	 *         chaining methods
 	 */
 	public JpaQueryBuilder or() {
 		where();
 		if (!builder.toString().equals("\nWHERE ")) {
-            builder.append("\n OR ");
-        }
+			builder.append("\n OR ");
+		}
 		return this;
 	}
- 
+
 	/**
 	 * 
-	 * @param attribute the name of the attribute to be compared
-	 * @param value the expected value of the attribute
-	 * @return the current instance of the builder so 
-	 * client code can use chaining methods
+	 * @param attribute
+	 *            the name of the attribute to be compared
+	 * @param value
+	 *            the expected value of the attribute
+	 * @return the current instance of the builder so client code can use
+	 *         chaining methods
 	 */
 	public JpaQueryBuilder equals(String attribute, Object value) {
 		where();

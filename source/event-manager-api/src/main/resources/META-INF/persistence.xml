@@ -6,8 +6,9 @@
 	version="1.0">
 	<persistence-unit name="event-manager">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!-- Para cuando ande o lo tire en un appserver
-		<jta-data-source>java:/dataSource</jta-data-source>
+		<!--
+			Para cuando ande o lo tire en un appserver
+			<jta-data-source>java:/dataSource</jta-data-source>
 		-->
 		<properties>
 			<!-- Hibernate Properties HSQLDB -->
@@ -18,7 +19,7 @@
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:mem:test" />
 			<property name="hibernate.connection.username" value="sa" />
 			<property name="hibernate.connection.password" value="" />
-			 
+
 		</properties>
 	</persistence-unit>
 </persistence>

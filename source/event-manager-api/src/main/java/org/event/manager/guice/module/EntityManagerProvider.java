@@ -8,16 +8,15 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 /**
- * Provides {@link EntityManager} instances
- * based on "event-manager" persistent unit
- * it only creates one {@link EntityManagerFactory}
- * because it is expensive to create
+ * Provides {@link EntityManager} instances based on "event-manager" persistent
+ * unit it only creates one {@link EntityManagerFactory} because it is expensive
+ * to create
+ * 
  * @author fabricio
- *
+ * 
  */
 @Singleton
-public class EntityManagerProvider implements Provider<EntityManager>
-{
+public class EntityManagerProvider implements Provider<EntityManager> {
 	/**
 	 *
 	 */
@@ -29,15 +28,14 @@ public class EntityManagerProvider implements Provider<EntityManager>
 	}
 
 	/**
-	 * Returns a new {@link EntityManager}
-     * from the created {@link EntityManagerFactory}
-     *
-     * @return A new {@link EntityManager}
-     */
-    @Override
+	 * Returns a new {@link EntityManager} from the created
+	 * {@link EntityManagerFactory}
+	 * 
+	 * @return A new {@link EntityManager}
+	 */
+	@Override
 	public EntityManager get() {
 		return factory.createEntityManager();
 	}
 
 }
-

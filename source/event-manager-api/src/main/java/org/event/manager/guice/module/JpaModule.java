@@ -13,29 +13,24 @@ import org.event.manager.guice.interceptors.TransactionInterceptor;
 import com.google.inject.AbstractModule;
 
 /**
- *
+ * 
  * @author fabricio
- *
+ * 
  */
 public class JpaModule extends AbstractModule {
 
 	/**
-	 * Configures the JPA configuration for this
-     * project
+	 * Configures the JPA configuration for this project
 	 */
 	@Override
 	protected void configure() {
-		bind(EntityManager.class)
-		.toProvider(EntityManagerProvider.class);
+		bind(EntityManager.class).toProvider(EntityManagerProvider.class);
 
-		bindInterceptor(any(),
-				annotatedWith(Tranactional.class),
+		bindInterceptor(any(), annotatedWith(Tranactional.class),
 				new TransactionInterceptor());
 
-		bindInterceptor(any(),
-				annotatedWith(PerforamanceLog.class),
+		bindInterceptor(any(), annotatedWith(PerforamanceLog.class),
 				new PerformanceInterceptor());
 	}
 
 }
-
