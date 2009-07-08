@@ -46,7 +46,7 @@ public class UserManager {
 	@Path("/login")
 	@PerforamanceLog
 	public String login(@FormParam("name") String name,
-			@FormParam("password") String password) {
+			    @FormParam("password") String password) {
 		Map<String, Object> params = ImmutableMap.<String, Object> of("name",
 				name, "password", password);
 		String result = "succesful";
@@ -72,7 +72,7 @@ public class UserManager {
 	@GET
 	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Wrapped(element = "list", prefix = "user")
+	@Wrapped(element = "users", prefix = "user")
 	public List<User> getUsers() {
 		return dao.findAllByClass(User.class);
 	}

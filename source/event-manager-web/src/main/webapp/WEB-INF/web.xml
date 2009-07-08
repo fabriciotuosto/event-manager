@@ -12,9 +12,7 @@
         <param-name>resteasy.guice.modules</param-name>
         <param-value>org.event.manager.guice.module.JpaModule,org.event.manager.guice.ResourceModule</param-value>
     </context-param>
-	<!--
-		set this if you map the Resteasy servlet to something other than
-	-->
+
     <context-param>
         <param-name>resteasy.servlet.mapping.prefix</param-name>
         <param-value>/services/</param-value>
@@ -26,9 +24,7 @@
     </context-param>
 
     <listener>
-        <listener-class>
-			org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
-        </listener-class>
+        <listener-class>org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener</listener-class>
     </listener>
 
 

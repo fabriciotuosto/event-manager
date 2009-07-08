@@ -1,32 +1,22 @@
 Ext.onReady(function(){
 
-    // NOTE: This is an example showing simple state management. During development,
-    // it is generally best to disable state management as dynamically-generated ids
-    // can change across page loads, leading to unpredictable results.  The developer
-    // should ensure that stable state ids are set for stateful components in real apps.
-    Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
-
     // helper function to dinamically add tabs
     function addTab(){
         tabs.add({
-            title: 'New Tab ',
+            title: 'New Event',
             iconCls: 'tabs',
             html: 'Tab Body <br/><br/>',
             closable:true
         }).show();
     }
 
-    var addTabButton = new Ext.Button({
-        text: 'Add Tab',
-        handler: addTab,
-        iconCls:'new-tab'
-    }).render(document.body, 'tabs');
     // The tab panel
     var tabs = new Ext.TabPanel({
         border: false, // already wrapped so don't add another border
         renderTo:'tabs',
         resizable: true,
         enableTabScroll:true,
+        plugins: new Ext.ux.TabCloseMenu(),
         activeTab: 0, // second tab initially active
         items: [{
             html: '<p>A TabPanel component can be a region.</p>',
@@ -124,7 +114,7 @@ Ext.onReady(function(){
             },
             tbar:[
             {
-                text:'New Tab',
+                text:'New Event',
                 iconCls: 'new-tab',
                 handler:addTab
             }],

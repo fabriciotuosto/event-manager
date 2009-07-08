@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,6 +23,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Entity
 @XmlRootElement
 @Table(name = "t_user")
+@UniqueConstraint(columnNames = "name")
 @NamedQueries( { @NamedQuery(name = User.FIND_BY_CREDENTIALS, query = "SELECT o FROM User o where o.name = :name and o.password = :password") })
 public class User implements Serializable {
 
@@ -29,6 +31,16 @@ public class User implements Serializable {
 	public static final String FIND_BY_CREDENTIALS = "org.event.manager.entities.User.findByCredentials";
 	private Long id;
 	private String name;
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	private String password;
 
 	@Id
