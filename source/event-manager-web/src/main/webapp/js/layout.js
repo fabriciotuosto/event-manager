@@ -8,41 +8,31 @@ Ext.onReady(function(){
 
     var viewport = new Ext.Viewport({
         layout: 'border',
-        items: [
-        // create instance immediately
-        new Ext.BoxComponent({
-            region: 'north',
-            height: 32, // give north and south regions a height
-            autoEl: {
-                tag: 'div',
-                html:'<p>north - generally for menus, toolbars and/or advertisements</p>'
-            }
-        }), {
+        items: [{
             // lazily created panel (xtype:'panel' is default)
             region: 'south',
             contentEl: 'south',
             split: true,
-            height: 100,
-            minSize: 100,
-            maxSize: 200,
+            height: 50,
+            minSize: 40,
+            maxSize: 100,
             collapsible: true,
+            collapsed: true,
             title: 'South',
             margins: '0 0 0 0'
         }, {
             region: 'east',
             title: 'East Side',
-            collapsible: true,
             split: true,
-            width: 225, // give east and west regions a width
-            minSize: 175,
-            maxSize: 400,
+            width: 700, // give east and west regions a width
+            minWidth: 600,
+            maxWidth: 1000,
             margins: '0 5 0 0',
             layout: 'fit', // specify layout manager for items
             items:            // this TabPanel is wrapped by another Panel so the title will be applied
             new Ext.TabPanel({
                 border: false, // already wrapped so don't add another border
                 activeTab: 1, // second tab initially active
-                tabPosition: 'bottom',
                 items: [{
                     html: '<p>A TabPanel component can be a region.</p>',
                     title: 'A Tab',
@@ -67,9 +57,11 @@ Ext.onReady(function(){
             id: 'west-panel', // see Ext.getCmp() below
             title: 'West',
             split: true,
-            width: 200,
-            minSize: 175,
-            maxSize: 400,
+            width: 300,
+            maxWidth: 400,
+            minWidth: 300,
+            minSize: 150,
+            maxSize: 200,
             collapsible: true,
             margins: '0 0 0 5',
             layout: {
@@ -78,11 +70,11 @@ Ext.onReady(function(){
             },
             items: [{
                 contentEl: 'west',
-                title: 'Navigation',
+                title: 'Main',
                 border: false,
                 iconCls: 'nav' // see the HEAD section for style used
             }, {
-                title: 'Settings',
+                title: 'Contacts',
                 html: '<p>Some settings in here.</p>',
                 border: false,
                 iconCls: 'settings'
@@ -91,21 +83,17 @@ Ext.onReady(function(){
         // in this instance the TabPanel is not wrapped by another panel
         // since no title is needed, this Panel is added directly
         // as a Container
-        new Ext.TabPanel({
+        {
             region: 'center', // a center region is ALWAYS required for border layout
             deferredRender: false,
-            activeTab: 0,     // first tab initially active
-            items: [{
-                contentEl: 'center1',
-                title: 'Close Me',
-                closable: true,
-                autoScroll: true
-            }, {
-                contentEl: 'center2',
-                title: 'Center Panel',
-                autoScroll: true
-            }]
-        })]
+            contentEl: 'center',
+            width: 300,
+            maxWidth: 300,
+            minWidth: 200,
+            title: 'Center',
+            margins: '0 0 0 0'
+        }
+        ]
     });
     // get a reference to the HTML element with id "hideit" and add a click listener to it
     Ext.get("hideit").on('click', function(){
