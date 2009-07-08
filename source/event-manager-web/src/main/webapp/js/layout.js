@@ -6,6 +6,51 @@ Ext.onReady(function(){
     // should ensure that stable state ids are set for stateful components in real apps.
     Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
+    // helper function to dinamically add tabs
+    function addTab(){
+        tabs.add({
+            title: 'New Tab ',
+            iconCls: 'tabs',
+            html: 'Tab Body <br/><br/>',
+            closable:true
+        }).show();
+    }
+
+    var addTabButton = new Ext.Button({
+        text: 'Add Tab',
+        handler: addTab,
+        iconCls:'new-tab'
+    }).render(document.body, 'tabs');
+    // The tab panel
+    var tabs = new Ext.TabPanel({
+        border: false, // already wrapped so don't add another border
+        renderTo:'tabs',
+        resizable: true,
+        enableTabScroll:true,
+        activeTab: 0, // second tab initially active
+        items: [{
+            html: '<p>A TabPanel component can be a region.</p>',
+            title: 'A Tab',
+            autoScroll: true,
+            iconCls: 'tabs',
+            closable: true
+        }, new Ext.grid.PropertyGrid({
+            iconCls: 'tabs',
+            title: 'Property Grid',
+            closable: true,
+            source: {
+                "(name)": "Properties Grid",
+                "grouping": false,
+                "autoFitColumns": true,
+                "productionQuality": false,
+                "created": new Date(Date.parse('10/15/2006')),
+                "tested": false,
+                "version": 0.01,
+                "borderWidth": 1
+            }
+        })]
+    })
+
     var viewport = new Ext.Viewport({
         layout: 'border',
         items: [{
@@ -29,29 +74,8 @@ Ext.onReady(function(){
             maxWidth: 1000,
             margins: '0 5 0 0',
             layout: 'fit', // specify layout manager for items
-            items:            // this TabPanel is wrapped by another Panel so the title will be applied
-            new Ext.TabPanel({
-                border: false, // already wrapped so don't add another border
-                activeTab: 1, // second tab initially active
-                items: [{
-                    html: '<p>A TabPanel component can be a region.</p>',
-                    title: 'A Tab',
-                    autoScroll: true
-                }, new Ext.grid.PropertyGrid({
-                    title: 'Property Grid',
-                    closable: true,
-                    source: {
-                        "(name)": "Properties Grid",
-                        "grouping": false,
-                        "autoFitColumns": true,
-                        "productionQuality": false,
-                        "created": new Date(Date.parse('10/15/2006')),
-                        "tested": false,
-                        "version": 0.01,
-                        "borderWidth": 1
-                    }
-                })]
-            })
+            items:  tabs     // this TabPanel is wrapped by another Panel so the title will be applied
+
         }, {
             region: 'west',
             id: 'west-panel', // see Ext.getCmp() below
@@ -84,22 +108,35 @@ Ext.onReady(function(){
         // since no title is needed, this Panel is added directly
         // as a Container
         {
+
             region: 'center', // a center region is ALWAYS required for border layout
             deferredRender: false,
             contentEl: 'center',
             width: 300,
             maxWidth: 300,
             minWidth: 200,
-            title: 'Center',
-            margins: '0 0 0 0'
+            title: 'Events',
+            margins: '0 0 0 0',
+            viewConfig: {
+                forceFit:true,
+                enableRowBody:true,
+                showPreview:true
+            },
+            tbar:[
+            {
+                text:'New Tab',
+                iconCls: 'new-tab',
+                handler:addTab
+            }],
+            bbar: new Ext.PagingToolbar({
+                pageSize: 25,
+                displayInfo: true,
+                displayMsg: 'Displaying topics {0} - {1} of {2}',
+                emptyMsg: "No topics to display"
+            })
+
         }
         ]
     });
-    // get a reference to the HTML element with id "hideit" and add a click listener to it
-    Ext.get("hideit").on('click', function(){
-        // get a reference to the Panel that was created with id = 'west-panel'
-        var w = Ext.getCmp('west-panel');
-        // expand or collapse that Panel based on its collapsed property state
-        w.collapsed ? w.expand() : w.collapse();
-    });
+
 });
