@@ -88,6 +88,7 @@ Ext.onReady(function(){
                 border: false,
                 iconCls: 'nav' // see the HEAD section for style used
             }, {
+                // display all div for each contact showing picture and name
                 title: 'Contacts',
                 html: '<p>Some settings in here.</p>',
                 border: false,
@@ -112,12 +113,14 @@ Ext.onReady(function(){
                 enableRowBody:true,
                 showPreview:true
             },
+            // Generate a new event tag
             tbar:[
             {
                 text:'New Event',
                 iconCls: 'new-tab',
                 handler:addTab
             }],
+            // Paginator for the evetns
             bbar: new Ext.PagingToolbar({
                 pageSize: 25,
                 displayInfo: true,

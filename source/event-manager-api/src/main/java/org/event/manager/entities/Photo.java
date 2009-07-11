@@ -11,7 +11,6 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @UniqueConstraint(columnNames = "uri")
 public class Photo {
-
 	private Long id;
 	private URI uri;
 

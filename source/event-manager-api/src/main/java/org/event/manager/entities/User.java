@@ -2,12 +2,14 @@ package org.event.manager.entities;
 
 import java.io.Serializable;
 
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,6 +34,9 @@ public class User implements Serializable {
 	private Long id;
 	private String name;
 	private String email;
+        private String password;
+        private Set<Group> groups;
+        private Set<User> contacts;
 
 	public String getEmail() {
 		return email;
@@ -41,7 +46,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	private String password;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,4 +94,34 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+    /**
+     * @return the groups
+     */
+    @OneToMany(targetEntity=Group.class)
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    /**
+     * @param groups the groups to set
+     */
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    /**
+     * @return the contacts
+     */
+    @OneToMany(targetEntity=User.class)
+    public Set<User> getContacts() {
+        return contacts;
+    }
+
+    /**
+     * @param contacts the contacts to set
+     */
+    public void setContacts(Set<User> contacts) {
+        this.contacts = contacts;
+    }
 }
