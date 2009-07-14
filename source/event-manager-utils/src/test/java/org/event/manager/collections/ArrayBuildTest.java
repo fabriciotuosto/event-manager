@@ -1,7 +1,7 @@
 package org.event.manager.collections;
 
 import java.util.Arrays;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
 import org.event.manager.test.TestGroup;
 import org.testng.annotations.DataProvider;
