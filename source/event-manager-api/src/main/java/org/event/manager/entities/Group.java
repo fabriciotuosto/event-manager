@@ -8,11 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.common.collect.Sets;
 
 @Entity
 @Table(name = "t_group")
+@XmlRootElement
 public class Group {
 
 	private Long id;
