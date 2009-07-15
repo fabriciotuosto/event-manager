@@ -13,11 +13,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.google.common.collect.Sets;
 
 @Entity
-@Table(name = "t_group")
+@Table(name = "Groups")
 @XmlRootElement
 public class Group {
 
 	private Long id;
+	private String name;
 	private Set<User> users;
 
 	public Group() {
@@ -41,6 +42,21 @@ public class Group {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	public Group addUser(User... users){
+		for(User user: users){
+			this.users.add(user);
+		}
+		return this;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
