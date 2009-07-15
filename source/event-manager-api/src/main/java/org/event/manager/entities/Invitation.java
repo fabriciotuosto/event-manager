@@ -10,10 +10,10 @@ import javax.persistence.OneToOne;
 public class Invitation {
 
 	private Long id;
-        private Event event;
-        private User user;
-        private boolean answer;
-        
+	private Event event;
+	private User user;
+	private boolean answer;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
@@ -24,49 +24,51 @@ public class Invitation {
 		this.id = id;
 	}
 
-    /**
-     * @return the event
-     */
-    @OneToOne(targetEntity=Event.class)
-    public Event getEvent() {
-        return event;
-    }
+	/**
+	 * @return the event
+	 */
+	@OneToOne(targetEntity = Event.class)
+	public Event getEvent() {
+		return event;
+	}
 
-    /**
-     * @param event the event to set
-     */
-    public void setEvent(Event event) {
-        this.event = event;
-    }
+	/**
+	 * @param event
+	 *            the event to set
+	 */
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 
-    /**
-     * @return the user
-     */
-    @OneToOne(targetEntity=User.class)
-    public User getUser() {
-        return user;
-    }
+	/**
+	 * @return the user
+	 */
+	@OneToOne(targetEntity = User.class)
+	public User getUser() {
+		return user;
+	}
 
-    /**
-     * @param user the user to set
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
+	/**
+	 * @param user
+	 *            the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    /**
-     * @return the answer
-     */
-    public boolean isAnswer() {
-        return answer;
-    }
+	/**
+	 * @return the answer
+	 */
+	public boolean isAnswer() {
+		return answer;
+	}
 
-    /**
-     * @param answer the answer to set
-     */
-    public void setAnswer(boolean answer) {
-        this.answer = answer;
-    }
-
+	/**
+	 * @param answer
+	 *            the answer to set
+	 */
+	public void setAnswer(boolean answer) {
+		this.answer = answer;
+	}
 
 }

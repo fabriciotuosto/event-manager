@@ -20,6 +20,7 @@ public class UserTest {
     @Test(dataProvider="valid_user_creation")
     public void create_valid_user_with_builder(String username,String mail,String password){
         User user = User.createUser(username,mail,password).build();
+        assertNotNull(user);
         assertEquals(user.getName(),username);
         assertEquals(user.getEmail(),mail);
         assertEquals(user.getPassword(),password);

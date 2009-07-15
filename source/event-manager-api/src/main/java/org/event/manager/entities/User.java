@@ -75,12 +75,12 @@ public class User implements Serializable {
 	 * @param builder
 	 */
 	private User(UserBuilder builder) {
-		id = builder.id;
-		name = builder.name;
-		email = builder.email;
-		password = builder.password;
-		groups = builder.groups;
-		contacts = builder.contacts;
+		this.id = builder.id;
+		this.name = builder.name;
+		this.email = builder.email;
+		this.password = builder.password;
+		this.groups = builder.groups;
+		this.contacts = builder.contacts;
 	}
 
 	@Id
