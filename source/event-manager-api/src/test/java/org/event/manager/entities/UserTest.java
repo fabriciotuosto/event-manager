@@ -106,6 +106,7 @@ public class UserTest {
 		assertTrue(first.equals(second));
 		assertTrue(second.equals(third));
 		assertTrue(first.equals(third));
+		assertTrue(first.equals(first));
 	}
 	
 	@Test
