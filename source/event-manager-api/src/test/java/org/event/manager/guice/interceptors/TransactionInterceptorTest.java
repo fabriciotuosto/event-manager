@@ -3,27 +3,23 @@ package org.event.manager.guice.interceptors;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 
-import java.lang.reflect.Method;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.event.manager.dao.Dao;
-import org.event.manager.test.TestGroup;
 import org.mockito.InOrder;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class TransactionInterceptorTest {
 
 	private TransactionInterceptor interceptor;
-	private Method method;
 	private EntityManager em;
 	private EntityTransaction trx;
 	private Dao dao;
 	private MethodInvocation mockInvokation;
+	
 	@BeforeClass
 	public void createInterceptor() throws SecurityException, NoSuchMethodException{
 		interceptor = new TransactionInterceptor();
@@ -81,15 +77,29 @@ public class TransactionInterceptorTest {
 		verified_no_further_interactions();
 	}
 	
-//	@Test(expectedExceptions={Throwable.class})
-//	public void performance_interceptor_fail() throws Throwable{
-//		prepareMocks();
-//		when(mockInvokation.proceed()).thenThrow(new Throwable());
-//		when(mockInvokation.getMethod()).thenReturn(method);
-//		
-//		InOrder inOrder = inOrder(mockInvokation);
-//		inOrder.verify(mockInvokation).proceed();
-//		inOrder.verify(mockInvokation).getMethod();
-//		verifyNoMoreInteractions(mockInvokation);
-//	}
+	@Test(expectedExceptions={Throwable.class})
+	public void new_transaction_throw_exceptions() throws Throwable{
+		try{
+			prepareMocks();
+			
+			when(trx.isActive()).thenReturn(false);
+			when(mockInvokation.proceed()).thenThrow(new Throwable());
+			
+			interceptor.invoke(mockInvokation);
+			fail();
+		}finally {
+			InOrder inOrder = inOrder(mockInvokation,dao,em,trx);
+			inOrder.verify(mockInvokation).getThis();
+			inOrder.verify(dao).getEntityManager();
+			inOrder.verify(em).getTransaction();
+			inOrder.verify(trx).isActive();
+			inOrder.verify(dao).getEntityManager();
+			inOrder.verify(em).getTransaction();
+			inOrder.verify(trx).begin();
+			inOrder.verify(mockInvokation).proceed();
+			
+			inOrder.verify(trx).rollback();
+			verified_no_further_interactions();
+		}
+	}
 }

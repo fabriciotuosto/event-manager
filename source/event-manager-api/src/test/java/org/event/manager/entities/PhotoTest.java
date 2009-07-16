@@ -145,4 +145,15 @@ public class PhotoTest {
 		assertSame(photo.getUri(), uri);
 		assertSame(photo.getName(), name);
 	}
+	
+	@Test
+	public void create_photo_with_tooltip(){
+		final String tooltip = "kaoru first walk";
+		Photo photo = Photo.createPhoto("kaoru", VALID_URL)
+		                   .withToolTip(tooltip)
+		                   .build();
+		
+		assertNotNull(photo);
+		assertEquals(photo.getTooltip(), tooltip);
+	}
 }

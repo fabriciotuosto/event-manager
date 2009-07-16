@@ -151,6 +151,16 @@ public class Photo {
 		public Photo build() {
 			return new Photo(this);
 		}
+
+		/**
+		 * 
+		 * @param tooltip
+		 * @return
+		 */
+		public PhotoBuilder withToolTip(String tooltip) {
+			this.tooltip = tooltip;
+			return this;
+		}
 		
 	} 
 }
