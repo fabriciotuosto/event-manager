@@ -67,7 +67,6 @@ public class Photo {
 	 * @param photoBuilder
 	 */
 	private Photo(PhotoBuilder photoBuilder) {
-		this.id = photoBuilder.id;
 		this.name = photoBuilder.name;
 		this.tooltip = photoBuilder.tooltip;
 		this.uri = photoBuilder.uri;
@@ -133,8 +132,6 @@ public class Photo {
 	}
 	
 	public static class PhotoBuilder implements Builder<Photo>{
-
-		private Long id;
 		private String name;
 		private String tooltip;
 		private URI uri;

@@ -39,10 +39,10 @@ public class PhotoTest {
 		assertNotNull(new Photo());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test(dataProvider="invalid_ids", expectedExceptions={IllegalArgumentException.class})
 	public void create_invalid_photo_with_id(Long id){
-		@SuppressWarnings({ "deprecation", "unused" })
-		Photo photo = new Photo(id);
+		new Photo(id);
 	}
 	
     @Test(dataProvider="valid_photo_string_creation")

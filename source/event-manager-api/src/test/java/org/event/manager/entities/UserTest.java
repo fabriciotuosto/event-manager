@@ -23,6 +23,7 @@ import static org.testng.Assert.*;
 public class UserTest {
 
 	private static final Long ID = 10L;
+	private static final Long INVALID_ID = -10L;
 	
 	@Test()
 	public void create_user_with_id(){
@@ -33,12 +34,20 @@ public class UserTest {
 		assertNotNull(user.toString());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test(expectedExceptions={IllegalArgumentException.class})
-	public void create_invalid_user_with_id(){
-		@SuppressWarnings({ "deprecation", "unused" })
-		User user = new User(null);
+	public void create_invalid_user_with_id(Long id){
+		new User(id);
+		
 	}
 	
+    @DataProvider(name="invalid_ids")
+    public Object[][] invalid_ids(){
+        return new Object[][]{
+            new Object[] {null},
+            new Object[] {INVALID_ID}
+        };
+    }
     @Test(dataProvider="valid_user_creation")
     public void create_valid_user_with_builder(String username,String mail,String password){
         User user = User.createUser(username,mail,password).build();

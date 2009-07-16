@@ -81,6 +81,7 @@ public class User implements Serializable {
 	public User(Long id) {
 		this();
 		Validate.notNull(id);
+		Validate.isTrue(id.longValue() > 0,"Id must be positive");
 		this.id = id;
 	}
 
@@ -90,7 +91,6 @@ public class User implements Serializable {
 	 * @param builder
 	 */
 	private User(UserBuilder builder) {
-		this.id = builder.id;
 		this.name = builder.name;
 		this.email = builder.email;
 		this.password = builder.password;
@@ -226,8 +226,6 @@ public class User implements Serializable {
 	}
 
 	public static class UserBuilder implements Builder<User> {
-
-		private Long id;
 		private String name;
 		private String email;
 		private String password;
