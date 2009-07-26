@@ -7,7 +7,7 @@ package org.event.manager.entities;
 
 import static org.junit.Assert.*;
 
-import org.event.manager.test.TestUtils;
+import org.event.manager.TestUtils;
 import org.junit.Test;
 
 /**

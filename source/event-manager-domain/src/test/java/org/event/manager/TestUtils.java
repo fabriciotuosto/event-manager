@@ -1,4 +1,4 @@
-package org.event.manager.test;
+package org.event.manager;
 
 
 import static org.junit.Assert.*;
