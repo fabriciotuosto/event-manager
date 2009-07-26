@@ -1,6 +1,7 @@
 package org.event.manager.entities;
 
 import java.util.Calendar;
+import java.util.Comparator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,10 +15,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.Validate;
 import org.event.manager.Builder;
 
+import com.google.common.collect.Ordering;
+
 @Entity
 @XmlRootElement
 public class Comment {
-
+	
+	public static final Comparator<Comment> DATE_ASCENDING_COMPARATOR = Comparators.DATE_ASC;
+	public static final Comparator<Comment> DATE_DESCENDING_COMPARATOR = Ordering.from(DATE_ASCENDING_COMPARATOR).reverse();
+	public static final Comparator<Comment> USER_NAME_ASCENDING_COMPARATOR = Comparators.DATE_ASC;
+	
 	private Long id;
 	private Calendar when;
 	private User commenter;
@@ -91,7 +98,28 @@ public class Comment {
 		@Override
 		public Comment build() {
 			return new Comment(this);
+		}		
+	}
+	
+	private static enum Comparators implements Comparator<Comment>{
+		DATE_ASC(){
+			@Override
+			public int compare(Comment o1, Comment o2) {
+				Validate.notNull(o1);
+				Validate.notNull(o2);
+				return o1.getWhen().compareTo(o2.getWhen());
+			}},
+		USER_ASC(){
+			@Override
+			public int compare(Comment o1, Comment o2) {
+				Validate.notNull(o1);
+				Validate.notNull(o2);
+				Validate.notNull(o1.getCommenter());
+				Validate.notNull(o2.getCommenter());
+				return o1.getCommenter().getName().compareTo(o2.getCommenter().getName());
+			}
 		}
+
 		
 	}
 }

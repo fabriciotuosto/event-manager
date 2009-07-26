@@ -8,12 +8,16 @@ import java.util.Comparator;
 public class TestUtils {
 
 	
-	public static <T,D> void equalsTest(T first,T second,T third, D different){
+	public static <T,D> void equalsTest(T first,T second,T third, D different,T... others){
 		assertFalse(first.equals(different));
 		assertTrue(first.equals(second));
 		assertTrue(second.equals(third));
 		assertTrue(first.equals(third));
 		assertTrue(first.equals(first));
+		assertFalse(first.equals(null));
+		for(T t : others){
+			assertFalse(first.equals(t));
+		}
 	}
 	
 	public static <T> void hashCodeTest(T first,T equals, T different){

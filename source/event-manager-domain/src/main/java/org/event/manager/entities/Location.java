@@ -12,6 +12,11 @@ public class Location {
 
 	private Long id;
 
+	@Deprecated
+	public Location(Long id) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
