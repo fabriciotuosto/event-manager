@@ -48,7 +48,7 @@ public class User implements Serializable {
 	 * @param password
 	 * @return
 	 */
-	public static UserBuilder createUser(String name, String email,
+	public static UserBuilder newUser(String name, String email,
 			String password) {
 		return new UserBuilder(name, email, password);
 	}
@@ -82,7 +82,7 @@ public class User implements Serializable {
 		this();
 		Validate.notNull(id);
 		Validate.isTrue(id.longValue() > 0,"Id must be positive");
-		this.id = id;
+		setId(id);
 	}
 
 	/**
@@ -91,11 +91,11 @@ public class User implements Serializable {
 	 * @param builder
 	 */
 	private User(UserBuilder builder) {
-		this.name = builder.name;
-		this.email = builder.email;
-		this.password = builder.password;
-		this.groups = Sets.newHashSet(builder.groups);
-		this.contacts = Sets.newHashSet(builder.contacts);
+		setName(builder.name);
+		setEmail(builder.email);
+		setPassword(builder.password);
+		setGroups(Sets.newHashSet(builder.groups));
+		setContacts(Sets.newHashSet(builder.contacts));
 	}
 
 	@Id
@@ -226,9 +226,9 @@ public class User implements Serializable {
 	}
 
 	public static class UserBuilder implements Builder<User> {
-		private String name;
-		private String email;
-		private String password;
+		private final String name;
+		private final String email;
+		private final String password;
 		private Set<Group> groups;
 		private Set<User> contacts;
 

@@ -9,6 +9,7 @@
 
 
     <modelVersion>4.0.0</modelVersion>
+    <groupId>org.event.manager</groupId>
 	<artifactId>event-manager-utils</artifactId>
     <version>${application.version}</version>
 	<packaging>jar</packaging>

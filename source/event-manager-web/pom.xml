@@ -9,17 +9,18 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.event.manager</groupId>
 	<artifactId>event-manager-web</artifactId>
 	<packaging>war</packaging>
 	<version>${application.version}</version>
-	<name>Event Manager Web Interface</name>
+	<name>Event Manager Web</name>
 	<url>http://maven.apache.org</url>
    
 	<dependencies>
 		<!-- Business logic dependency -->
 		<dependency>
 			<groupId>${application.groupId}</groupId>
-			<artifactId>event-manager-api</artifactId>
+			<artifactId>event-manager-domain</artifactId>
 			<version>${application.version}</version>
 		</dependency>
 		<!-- Web Container dependencies -->
@@ -72,7 +73,4 @@
 	<build>
 		<finalName>event-manager</finalName>
 	</build>
-	<properties>
-        <netbeans.hint.deploy.server>J2EE</netbeans.hint.deploy.server>
-    </properties>
 </project>

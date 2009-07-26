@@ -47,14 +47,6 @@ public class Dao {
 		this.em = em;
 	}
 
-	/**
-	 * 
-         * @param klass
-         * @return an instantiate {@link JpaQueryBuilder}
-	 */
-	public JpaQueryBuilder getQueryBuilder(Class<?> klass) {
-		return new JpaQueryBuilder(em, klass);
-	}
 
 	/**
 	 * Removes the element from the associated {@link EntityManager}

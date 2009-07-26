@@ -1,30 +1,32 @@
 package org.event.manager.guice.interceptors;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.event.manager.dao.Dao;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.mockito.InOrder;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 public class TransactionInterceptorTest {
 
-	private TransactionInterceptor interceptor;
+	private static TransactionInterceptor interceptor;
 	private EntityManager em;
 	private EntityTransaction trx;
 	private Dao dao;
 	private MethodInvocation mockInvokation;
 	
 	@BeforeClass
-	public void createInterceptor() throws SecurityException, NoSuchMethodException{
+	public static void createInterceptor() throws SecurityException, NoSuchMethodException{
 		interceptor = new TransactionInterceptor();
 	}
 	
+	@Before
 	public void prepareMocks(){		
 		em = mock(EntityManager.class);
 		trx = mock(EntityTransaction.class);
@@ -42,8 +44,6 @@ public class TransactionInterceptorTest {
 	}
 	@Test
 	public void new_transaction_no_exceptions() throws Throwable{
-		prepareMocks();
-
 		when(trx.isActive()).thenReturn(false);
 		interceptor.invoke(mockInvokation);
 		
@@ -62,7 +62,6 @@ public class TransactionInterceptorTest {
 	
 	@Test
 	public void join_transaction_no_exceptions() throws Throwable{
-		prepareMocks();
 		when(trx.isActive()).thenReturn(true);
 		interceptor.invoke(mockInvokation);
 		
@@ -77,28 +76,22 @@ public class TransactionInterceptorTest {
 		verified_no_further_interactions();
 	}
 	
-	@Test(expectedExceptions={Throwable.class})
+	@Test(expected=Throwable.class)
 	public void new_transaction_throw_exceptions() throws Throwable{
-		try{
-			prepareMocks();
-			
-			when(trx.isActive()).thenReturn(false);
-			when(mockInvokation.proceed()).thenThrow(new Throwable());
-			
+		when(trx.isActive()).thenReturn(false);
+		when(mockInvokation.proceed()).thenThrow(new Throwable());
+		try{			
 			interceptor.invoke(mockInvokation);
 			fail();
 		}finally {
-			InOrder inOrder = inOrder(mockInvokation,dao,em,trx);
-			inOrder.verify(mockInvokation).getThis();
-			inOrder.verify(dao).getEntityManager();
-			inOrder.verify(em).getTransaction();
-			inOrder.verify(trx).isActive();
-			inOrder.verify(dao).getEntityManager();
-			inOrder.verify(em).getTransaction();
-			inOrder.verify(trx).begin();
-			inOrder.verify(mockInvokation).proceed();
+			verify(mockInvokation).getThis();
+			verify(dao,times(2)).getEntityManager();
+			verify(em,times(2)).getTransaction();
+			verify(trx).isActive();
+			verify(trx).begin();
+			verify(mockInvokation).proceed();
 			
-			inOrder.verify(trx).rollback();
+			verify(trx).rollback();
 			verified_no_further_interactions();
 		}
 	}

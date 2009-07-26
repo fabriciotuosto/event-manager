@@ -9,8 +9,7 @@ package org.event.manager.collections;
  */
 public final class ArrayBuild {
 
-	private ArrayBuild() {
-	}
+	private ArrayBuild() {}
 
 	/**
 	 * Builds an array containing the parameters added to the method call

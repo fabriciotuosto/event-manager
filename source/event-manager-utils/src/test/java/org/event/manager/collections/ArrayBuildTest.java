@@ -1,14 +1,10 @@
 package org.event.manager.collections;
 
-import static org.testng.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import java.util.Arrays;
+import org.junit.Test;
 
-import org.event.manager.test.TestGroup;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
-@Test(groups = { TestGroup.UNIT })
 public class ArrayBuildTest {
 
 	@Test
@@ -16,18 +12,12 @@ public class ArrayBuildTest {
 		assertNotNull(ArrayBuild.of());
 	}
 
-	@DataProvider(name = "array")
-	public Object[][] dataPriver() {
-		return new Object[][] {
-				new Object[] { new Object[] { "1", "2", "3" } },
-				new Object[] { new Object[] { null, "not null", } },
-				new Object[] { new Object[] { null, 1L, "1" } } };
-	}
-
-	@Test(dataProvider = "array")
-	public <T> void test_creation_with_different_data(T... data) {
-		System.out.println(Arrays.toString(data));
-		assertNotNull(ArrayBuild.of(data));
+	@Test
+	public <T> void test_creation_with_different_data() {
+		String[] array = ArrayBuild.of("1", "2", "3");
+		assertNotNull(array);
+		String[] expected = {"1","2","3"};
+		assertArrayEquals(expected,array);
 	}
 
 }

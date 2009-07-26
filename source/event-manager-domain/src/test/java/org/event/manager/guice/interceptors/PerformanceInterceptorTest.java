@@ -1,27 +1,26 @@
 package org.event.manager.guice.interceptors;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.testng.Assert.assertSame;
 
 import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInvocation;
-import org.event.manager.test.TestGroup;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.mockito.InOrder;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
-@Test(groups={TestGroup.UNIT})
+
 public class PerformanceInterceptorTest {
 
-	private PerformanceInterceptor interceptor;
-	private Method method;
+	private static PerformanceInterceptor interceptor;
+	private static Method method;
 	
 	@BeforeClass
-	public void createInterceptor() throws SecurityException, NoSuchMethodException{
+	public static void createInterceptor() throws SecurityException, NoSuchMethodException{
 		interceptor = new PerformanceInterceptor();
 		method = Object.class.getDeclaredMethod("toString");
 	}
@@ -39,15 +38,18 @@ public class PerformanceInterceptorTest {
 		verifyNoMoreInteractions(mockInvokation);
 	}
 	
-	@Test(expectedExceptions={Throwable.class})
+	@Test(expected=Throwable.class)
 	public void performance_interceptor_fail() throws Throwable{
 		MethodInvocation mockInvokation = mock(MethodInvocation.class);
-		when(mockInvokation.proceed()).thenThrow(new Throwable());
-		when(mockInvokation.getMethod()).thenReturn(method);
-		
-		InOrder inOrder = inOrder(mockInvokation);
-		inOrder.verify(mockInvokation).proceed();
-		inOrder.verify(mockInvokation).getMethod();
-		verifyNoMoreInteractions(mockInvokation);
+		try{
+			when(mockInvokation.proceed()).thenThrow(new Throwable());
+			when(mockInvokation.getMethod()).thenReturn(method);
+			interceptor.invoke(mockInvokation);			
+		}finally{
+			InOrder inOrder = inOrder(mockInvokation);
+			inOrder.verify(mockInvokation).proceed();
+			inOrder.verify(mockInvokation).getMethod();
+			verifyNoMoreInteractions(mockInvokation);
+		}
 	}
 }

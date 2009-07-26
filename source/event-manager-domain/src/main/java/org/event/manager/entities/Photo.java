@@ -37,7 +37,7 @@ public class Photo {
 	 * @param uri
 	 * @return
 	 */
-	public static PhotoBuilder createPhoto(String name,String uri){
+	public static PhotoBuilder newPhoto(String name,String uri){
 		Validate.notNull(uri,"URI cannot be null");
 		return new PhotoBuilder(name,URI.create(uri));
 	}
@@ -48,7 +48,7 @@ public class Photo {
 	 * @param uri
 	 * @return
 	 */
-	public static PhotoBuilder createPhoto(String name,URI uri){
+	public static PhotoBuilder newPhoto(String name,URI uri){
 		return new PhotoBuilder(name,uri);
 	}
 	/**
@@ -59,7 +59,7 @@ public class Photo {
 	public Photo(Long id){
 		Validate.notNull(id, "Id must not be null");
 		Validate.isTrue(id.longValue() > 0,"Id must be positive");
-		this.id = id;
+		setId(id);
 	}
 	
 	/**
@@ -67,9 +67,9 @@ public class Photo {
 	 * @param photoBuilder
 	 */
 	private Photo(PhotoBuilder photoBuilder) {
-		this.name = photoBuilder.name;
-		this.tooltip = photoBuilder.tooltip;
-		this.uri = photoBuilder.uri;
+		setName(photoBuilder.name);
+		setTooltip(photoBuilder.tooltip);
+		setUri(photoBuilder.uri);
 	}
 
 	@Id
