@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.event.manager.Builder;
-import org.event.manager.utils.InternetUtils;
+import org.event.manager.utils.Utils;
 
 import com.google.common.collect.Sets;
 
@@ -237,7 +237,7 @@ public class User implements Serializable {
 			Validate.notNull(password,
 					"The password of the user cannot be null");
 			Validate.notNull(email, "The email of the user cannot be null");
-			Validate.isTrue(InternetUtils.isEmailAdressValid(email),
+			Validate.isTrue(Utils.isEmailAdressValid(email),
 					"The email must be a valid mail address");
 			this.name = name;
 			this.email = email;

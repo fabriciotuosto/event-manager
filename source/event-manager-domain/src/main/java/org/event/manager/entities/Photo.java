@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.event.manager.Builder;
-import org.event.manager.utils.InternetUtils;
+import org.event.manager.utils.Utils;
 
 @Entity
 @XmlRootElement
@@ -139,7 +139,7 @@ public class Photo {
 		private PhotoBuilder(String name, URI uri) {
 			Validate.notNull(name, "Cannot create photo without name");
 			Validate.notNull(uri, "Cannot create photo without uri");
-			Validate.isTrue(InternetUtils.isImageLinkValid(uri.toString()));
+			Validate.isTrue(Utils.isImageLinkValid(uri.toString()));
 			this.name = name;
 			this.uri = uri;
 		}
