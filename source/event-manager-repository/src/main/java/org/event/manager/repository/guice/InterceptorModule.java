@@ -6,7 +6,7 @@ import static com.google.inject.matcher.Matchers.any;
 import javax.persistence.EntityManager;
 
 import org.event.annotations.repository.PerforamanceLog;
-import org.event.annotations.repository.Tranactional;
+import org.event.manager.repository.annotations.Tranactional;
 import org.event.manager.repository.interceptors.PerformanceInterceptor;
 import org.event.manager.repository.interceptors.TransactionInterceptor;
 

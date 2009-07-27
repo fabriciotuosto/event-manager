@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang.Validate;
 import org.event.annotations.repository.PerforamanceLog;
-import org.event.annotations.repository.Tranactional;
+import org.event.manager.repository.annotations.Tranactional;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;

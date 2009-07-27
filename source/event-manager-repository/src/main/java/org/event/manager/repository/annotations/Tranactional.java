@@ -1,4 +1,4 @@
-package org.event.annotations.repository;
+package org.event.manager.repository.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
