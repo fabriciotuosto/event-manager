@@ -1,4 +1,4 @@
-package org.event.manager.guice.interceptors;
+package org.event.manager.repository.interceptors;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.inOrder;

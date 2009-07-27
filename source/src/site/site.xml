@@ -10,9 +10,6 @@
                                 href="http://xxx.yyy/some/other/path/default.aspx" /> 
                 </breadcrumbs> 
 		-->
-                <menu name="${project.name}"> 
-                        <item name="Introduction" href="index.html" /> 
-                </menu> 
                 <menu ref="parent" /> 
                 <menu ref="modules" /> 
                 <menu ref="reports" /> 

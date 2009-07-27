@@ -125,10 +125,7 @@ public class Event {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (!id.equals(other.id))
 			return false;
 		return true;
 	}
@@ -182,5 +179,12 @@ public class Event {
 			return this;
 		}
 
+	}
+
+	public Event comment(Comment... comments) {
+		for(Comment coment: comments){
+			this.comments.add(coment);
+		}
+		return this;
 	}
 }

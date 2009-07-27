@@ -2,8 +2,14 @@ package org.event.manager.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.event.manager.TestUtils;
 import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 public class EventTest {
 
@@ -38,7 +44,7 @@ public class EventTest {
 		Event second = new Event(ID);
 		Event third = new Event(ID);
 		Object object = new Object();
-		TestUtils.equalsTest(first, second, third, object,new Event());
+		TestUtils.equalsTest(first, second, third, object);
 	}
 	
 	@Test
@@ -48,6 +54,7 @@ public class EventTest {
 		Event second = new Event(ID);
 		Event different = new Event(500L);	
 		TestUtils.hashCodeTest(first, second, different);
+		assertEquals(31, new Event().hashCode());
 	}
 
 	@Test
@@ -96,5 +103,37 @@ public class EventTest {
 		assertTrue(event.getUsers().size() == 2);
 		assertFalse(event.getPhotos().isEmpty());
 		assertSame(photo, event.getPhotos().iterator().next());
+	}
+	
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void must_return_ordered_comments(){
+		User user = new User(ID);
+		Calendar yesterday = Calendar.getInstance();
+		yesterday.add(Calendar.DATE, -1);
+		Calendar today = Calendar.getInstance();
+		assertFalse(yesterday.equals(today));
+		
+		Comment first = Comment.newComment(user, "").build();
+		first.setWhen(yesterday);
+
+		Comment second = Comment.newComment(user, "").build();
+		second.setWhen(today);
+		
+		Set<Comment> orderedResult = Sets.newTreeSet(Comment.DATE_DESCENDING_COMPARATOR);
+		orderedResult.add(first);
+		orderedResult.add(second);
+		
+		Event event = new Event();
+		Set<Comment> _result = event.comment(first,second).getComments();
+		
+		assertEquals(orderedResult.size(),_result.size());
+		Iterator<Comment> expected = orderedResult.iterator();
+		Iterator<Comment> result   = _result.iterator();
+		while(expected.hasNext()){
+			assertSame(expected.next(), result.next());
+		}
+		
 	}
 }

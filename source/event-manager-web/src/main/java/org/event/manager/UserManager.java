@@ -17,9 +17,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.event.manager.dao.Dao;
-import org.event.manager.dao.annotations.PerforamanceLog;
+import org.event.annotations.repository.PerforamanceLog;
 import org.event.manager.entities.User;
+import org.event.manager.repository.Repository;
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
 import org.jboss.resteasy.annotations.providers.jaxb.json.Mapped;
 import org.slf4j.Logger;
@@ -35,10 +35,10 @@ public class UserManager {
 			.getLogger(UserManager.class);
 	@Context
 	HttpServletRequest request;
-	private final Dao dao;
+	private final Repository dao;
 
 	@Inject
-	public UserManager(Dao dao) {
+	public UserManager(Repository dao) {
 		this.dao = dao;
 	}
 
@@ -63,7 +63,7 @@ public class UserManager {
 	}
 
 	@GET
-	@Path("/user/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUser(@PathParam("id") Long id) {
 		return dao.findById(User.class, id);
@@ -78,14 +78,13 @@ public class UserManager {
 	}
 
 	@DELETE
-	@Path("/user/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User removeUser(@PathParam("id") Long id) {
 		return dao.removeById(User.class, id);
 	}
 
 	@PUT
-	@Path("/user")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addUser(@Mapped User user) {
 		dao.persistNow(user);

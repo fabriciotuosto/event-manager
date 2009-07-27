@@ -1,14 +1,14 @@
-package org.event.manager.guice.module;
+package org.event.manager.repository.guice;
 
 import static com.google.inject.matcher.Matchers.annotatedWith;
 import static com.google.inject.matcher.Matchers.any;
 
 import javax.persistence.EntityManager;
 
-import org.event.manager.dao.annotations.PerforamanceLog;
-import org.event.manager.dao.annotations.Tranactional;
-import org.event.manager.guice.interceptors.PerformanceInterceptor;
-import org.event.manager.guice.interceptors.TransactionInterceptor;
+import org.event.annotations.repository.PerforamanceLog;
+import org.event.annotations.repository.Tranactional;
+import org.event.manager.repository.interceptors.PerformanceInterceptor;
+import org.event.manager.repository.interceptors.TransactionInterceptor;
 
 import com.google.inject.AbstractModule;
 
@@ -17,20 +17,21 @@ import com.google.inject.AbstractModule;
  * @author fabricio
  * 
  */
-public class JpaModule extends AbstractModule {
+public class InterceptorModule extends AbstractModule {
 
 	/**
 	 * Configures the JPA configuration for this project
 	 */
 	@Override
 	protected void configure() {
-		bind(EntityManager.class).toProvider(EntityManagerProvider.class);
 
 		bindInterceptor(any(), annotatedWith(Tranactional.class),
 				new TransactionInterceptor());
 
 		bindInterceptor(any(), annotatedWith(PerforamanceLog.class),
 				new PerformanceInterceptor());
+		
+		bind(EntityManager.class).toProvider(EntityManagerProvider.class);
 	}
 
 }

@@ -4,6 +4,7 @@ import org.event.manager.UserManager;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 
 /**
  * 
@@ -28,6 +29,7 @@ public class ResourceModule extends AbstractModule {
 	 */
 	@Override
 	protected void configure() {
+		bind(String.class).annotatedWith(Names.named("persistent-unit")).toInstance("event-manager");
 		for (Class<?> clazz : resources) {
 			bind(clazz);
 		}

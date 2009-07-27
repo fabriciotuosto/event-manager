@@ -21,9 +21,9 @@ import com.google.common.collect.Ordering;
 @XmlRootElement
 public class Comment {
 	
-	public static final Comparator<Comment> DATE_ASCENDING_COMPARATOR = Comparators.DATE_ASC;
-	public static final Comparator<Comment> DATE_DESCENDING_COMPARATOR = Ordering.from(DATE_ASCENDING_COMPARATOR).reverse();
-	public static final Comparator<Comment> USER_NAME_ASCENDING_COMPARATOR = Comparators.DATE_ASC;
+	public static final Ordering<Comment> DATE_ASCENDING_COMPARATOR = Ordering.from(Comparators.DATE_ASC);
+	public static final Ordering<Comment> DATE_DESCENDING_COMPARATOR = DATE_ASCENDING_COMPARATOR.reverse();
+	public static final Ordering<Comment> USER_NAME_ASCENDING_COMPARATOR = Ordering.from(Comparators.DATE_ASC);
 	
 	private Long id;
 	private Calendar when;

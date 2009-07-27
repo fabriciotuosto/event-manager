@@ -1,13 +1,14 @@
-package org.event.manager.dao;
+package org.event.manager.repository;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 
 import javax.persistence.Query;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import org.event.manager.dao.Dao.ResultStrategy;
+import org.event.manager.repository.Repository.ResultStrategy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

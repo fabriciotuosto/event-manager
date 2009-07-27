@@ -23,6 +23,11 @@
 			<artifactId>event-manager-domain</artifactId>
 			<version>${application.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${application.groupId}</groupId>
+			<artifactId>event-manager-repository</artifactId>
+			<version>${application.version}</version>
+		</dependency>		
 		<!-- Web Container dependencies -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

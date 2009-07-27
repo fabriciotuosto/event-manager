@@ -10,7 +10,7 @@
 	-->
     <context-param>
         <param-name>resteasy.guice.modules</param-name>
-        <param-value>org.event.manager.guice.module.JpaModule,org.event.manager.guice.ResourceModule</param-value>
+        <param-value>org.event.manager.guice.ResourceModule,org.event.manager.repository.guice.InterceptorModule</param-value>
     </context-param>
 
     <context-param>

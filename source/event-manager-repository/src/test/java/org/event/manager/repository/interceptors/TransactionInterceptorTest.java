@@ -1,13 +1,18 @@
-package org.event.manager.guice.interceptors;
+package org.event.manager.repository.interceptors;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.aopalliance.intercept.MethodInvocation;
-import org.event.manager.dao.Dao;
+import org.event.manager.repository.Repository;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,7 +23,7 @@ public class TransactionInterceptorTest {
 	private static TransactionInterceptor interceptor;
 	private EntityManager em;
 	private EntityTransaction trx;
-	private Dao dao;
+	private Repository repository;
 	private MethodInvocation mockInvokation;
 	
 	@BeforeClass
@@ -30,29 +35,29 @@ public class TransactionInterceptorTest {
 	public void prepareMocks(){		
 		em = mock(EntityManager.class);
 		trx = mock(EntityTransaction.class);
-		dao = mock(Dao.class);
+		repository = mock(Repository.class);
 		mockInvokation = mock(MethodInvocation.class);
 		
-		when(mockInvokation.getThis()).thenReturn(dao);
-		when(dao.getEntityManager()).thenReturn(em);
+		when(mockInvokation.getThis()).thenReturn(repository);
+		when(repository.getEntityManager()).thenReturn(em);
 		when(em.getTransaction()).thenReturn(trx);
 		
 	}
 	
 	public void verified_no_further_interactions(){
-		verifyNoMoreInteractions(mockInvokation,em,dao,trx);
+		verifyNoMoreInteractions(mockInvokation,em,repository,trx);
 	}
 	@Test
 	public void new_transaction_no_exceptions() throws Throwable{
 		when(trx.isActive()).thenReturn(false);
 		interceptor.invoke(mockInvokation);
 		
-		InOrder inOrder = inOrder(mockInvokation,dao,em,trx);
+		InOrder inOrder = inOrder(mockInvokation,repository,em,trx);
 		inOrder.verify(mockInvokation).getThis();
-		inOrder.verify(dao).getEntityManager();
+		inOrder.verify(repository).getEntityManager();
 		inOrder.verify(em).getTransaction();
 		inOrder.verify(trx).isActive();
-		inOrder.verify(dao).getEntityManager();
+		inOrder.verify(repository).getEntityManager();
 		inOrder.verify(em).getTransaction();
 		inOrder.verify(trx).begin();
 		inOrder.verify(mockInvokation).proceed();
@@ -65,12 +70,12 @@ public class TransactionInterceptorTest {
 		when(trx.isActive()).thenReturn(true);
 		interceptor.invoke(mockInvokation);
 		
-		InOrder inOrder = inOrder(mockInvokation,dao,em,trx);
+		InOrder inOrder = inOrder(mockInvokation,repository,em,trx);
 		inOrder.verify(mockInvokation).getThis();
-		inOrder.verify(dao).getEntityManager();
+		inOrder.verify(repository).getEntityManager();
 		inOrder.verify(em).getTransaction();
 		inOrder.verify(trx).isActive();
-		inOrder.verify(dao).getEntityManager();
+		inOrder.verify(repository).getEntityManager();
 		inOrder.verify(em).joinTransaction();
 		inOrder.verify(mockInvokation).proceed();
 		verified_no_further_interactions();
@@ -85,7 +90,7 @@ public class TransactionInterceptorTest {
 			fail();
 		}finally {
 			verify(mockInvokation).getThis();
-			verify(dao,times(2)).getEntityManager();
+			verify(repository,times(2)).getEntityManager();
 			verify(em,times(2)).getTransaction();
 			verify(trx).isActive();
 			verify(trx).begin();

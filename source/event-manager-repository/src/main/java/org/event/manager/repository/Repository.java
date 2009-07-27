@@ -1,4 +1,4 @@
-package org.event.manager.dao;
+package org.event.manager.repository;
 
 import java.util.List;
 import java.util.Map;
@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.apache.commons.lang.Validate;
-import org.event.manager.dao.annotations.PerforamanceLog;
-import org.event.manager.dao.annotations.Tranactional;
+import org.event.annotations.repository.PerforamanceLog;
+import org.event.annotations.repository.Tranactional;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -18,7 +18,7 @@ import com.google.inject.Injector;
  * 
  * @author fabricio
  * 
- * {@link Dao} provides methods to interact easily with entity manager
+ * {@link Repository} provides methods to interact easily with entity manager
  * if this class was not provided by {@link Injector} then transaction
  * and performance logging is in hands of the client class if you use it
  * with Guice we provide a module that configures this class and
@@ -27,7 +27,7 @@ import com.google.inject.Injector;
  * thread safe and is not intend to be, because {@link EntityManager}
  * that is the sole dependency are very cheap to create so is this class
  */
-public class Dao {
+public class Repository {
 
 	/**
 	 * The entity manager that provides orm object
@@ -42,7 +42,7 @@ public class Dao {
 	 *             when @param em is null
 	 */
 	@Inject
-	public Dao(EntityManager em) {
+	public Repository(EntityManager em) {
 		Validate.notNull(em, "Entity manger must not be null");
 		this.em = em;
 	}

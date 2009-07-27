@@ -1,31 +1,30 @@
-package org.event.manager.guice.interceptors;
+package org.event.manager.repository.interceptors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.event.manager.dao.Dao;
-
+import org.event.manager.repository.Repository;
 /**
  * 
  * @author fabricio
  * 
  *         This intercepter was build in order to provide transparent
- *         transaction manager for {@link Dao} objects
+ *         transaction manager for {@link Repository} objects
  */
 public class TransactionInterceptor implements MethodInterceptor {
 
 	/**
-	 * Provides transaction to and only to {@link Dao} object or a subclass of
-	 * {@link Dao} object. This {@link MethodInterceptor} builds a new transaction
+	 * Provides transaction to and only to {@link Repository} object or a subclass of
+	 * {@link Repository} object. This {@link MethodInterceptor} builds a new transaction
 	 * if there isn't one active or joins to an existing one
      * @param  arg0
      * @throws Throwable
 	 */
     @Override
 	public Object invoke(MethodInvocation arg0) throws Throwable {
-		Dao dao = (Dao) arg0.getThis();
+		Repository dao = (Repository) arg0.getThis();
 		TransactionStrategy strategy = TransactionStrategy.NEW;
 		EntityTransaction transaction = dao.getEntityManager().getTransaction();
 		if (transaction.isActive()) {

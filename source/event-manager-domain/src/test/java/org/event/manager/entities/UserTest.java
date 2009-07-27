@@ -98,7 +98,6 @@ public class UserTest {
 		User first = new User(ID);
 		User second = new User(ID);
 		User different = new User(500L);
-		
 		TestUtils.hashCodeTest(first, second, different);
 	}
 	
