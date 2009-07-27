@@ -5,8 +5,8 @@ import static com.google.inject.matcher.Matchers.any;
 
 import javax.persistence.EntityManager;
 
-import org.event.annotations.repository.PerforamanceLog;
-import org.event.manager.repository.annotations.Tranactional;
+import org.event.annotations.repository.PerformanceLog;
+import org.event.manager.repository.annotations.Transactional;
 import org.event.manager.repository.interceptors.PerformanceInterceptor;
 import org.event.manager.repository.interceptors.TransactionInterceptor;
 
@@ -25,10 +25,10 @@ public class InterceptorModule extends AbstractModule {
 	@Override
 	protected void configure() {
 
-		bindInterceptor(any(), annotatedWith(Tranactional.class),
+		bindInterceptor(any(), annotatedWith(Transactional.class),
 				new TransactionInterceptor());
 
-		bindInterceptor(any(), annotatedWith(PerforamanceLog.class),
+		bindInterceptor(any(), annotatedWith(PerformanceLog.class),
 				new PerformanceInterceptor());
 		
 		bind(EntityManager.class).toProvider(EntityManagerProvider.class);

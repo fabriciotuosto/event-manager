@@ -17,7 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.event.annotations.repository.PerforamanceLog;
+import org.event.annotations.repository.PerformanceLog;
 import org.event.manager.entities.User;
 import org.event.manager.repository.Repository;
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
@@ -44,7 +44,7 @@ public class UserManager {
 
 	@POST
 	@Path("/login")
-	@PerforamanceLog
+	@PerformanceLog
 	public String login(@FormParam("name") String name,
 			    @FormParam("password") String password) {
 		Map<String, Object> params = ImmutableMap.<String, Object> of("name",

@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.apache.commons.lang.Validate;
-import org.event.annotations.repository.PerforamanceLog;
-import org.event.manager.repository.annotations.Tranactional;
+import org.event.annotations.repository.PerformanceLog;
+import org.event.manager.repository.annotations.Transactional;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -55,8 +55,8 @@ public class Repository {
 	 * @param elements
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E> E remove(E elements) {
 		em.remove(elements);
 		return elements;
@@ -69,8 +69,8 @@ public class Repository {
 	 * @param clazz
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E> List<E> removeAll(Class<E> clazz) {
 		List<E> elist = findAllByClass(clazz);
 		for (E e : elist) {
@@ -87,8 +87,8 @@ public class Repository {
 	 * @param id
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E, F> E removeById(Class<E> clazz, F id) {
 		E e = findById(clazz, id);
 		em.remove(e);
@@ -101,8 +101,8 @@ public class Repository {
 	 * @param e
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E> E persist(E e) {
 		em.persist(e);
 		return e;
@@ -114,8 +114,8 @@ public class Repository {
 	 * @param e
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E> E persistNow(E e) {
 		persist(e);
 		em.flush();
@@ -128,8 +128,8 @@ public class Repository {
 	 * @param e
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E> E merge(E e) {
 		em.merge(e);
 		return e;
@@ -141,8 +141,8 @@ public class Repository {
 	 * @param e
 	 * @return
 	 */
-	@Tranactional
-	@PerforamanceLog
+	@Transactional
+	@PerformanceLog
 	public <E> E mergeNow(E e) {
 		merge(e);
 		em.flush();
@@ -165,7 +165,7 @@ public class Repository {
 	 * @param id
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E, P> E findById(Class<E> clazz, P id) {
 		return em.find(clazz, id);
 	}
@@ -176,7 +176,7 @@ public class Repository {
 	 * @param clazz
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> List<E> findAllByClass(Class<E> clazz) {
 		return findByQuery(String.format("select obj from %s obj", clazz
 				.getCanonicalName()), null);
@@ -189,7 +189,7 @@ public class Repository {
 	 * @param params
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> E findUniqueByQuery(String query, Map<String, Object> params) {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
@@ -204,7 +204,7 @@ public class Repository {
 	 * @param params
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> E findUniqueByQuery(Query query, Map<String, Object> params) {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
@@ -219,7 +219,7 @@ public class Repository {
 	 * @param params
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> E findUniqueByNamedQuery(String query, Map<String, Object> params) {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
@@ -236,7 +236,7 @@ public class Repository {
 	 * @param params
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> List<E> findByNamedQuery(String query, Map<String, Object> params) {
 		Validate.notNull(query);
 		return findByQuery(em.createNamedQuery(query), params);
@@ -248,7 +248,7 @@ public class Repository {
 	 * @param params
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> List<E> findByQuery(String query, Map<String, Object> params) {
 		Validate.notNull(query);
 		return findByQuery(em.createQuery(query), params);
@@ -261,7 +261,7 @@ public class Repository {
 	 * @param params
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> List<E> findByQuery(Query query, Map<String, Object> params) {
 		return findByQuery(query, params, ResultStrategy.LIST);
 	}
@@ -272,7 +272,7 @@ public class Repository {
 	 * @param query
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> List<E> findByQuery(Query query) {
 		return findByQuery(query, ResultStrategy.LIST);
 	}
@@ -284,7 +284,7 @@ public class Repository {
 	 * @param strategy
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> E findByQuery(Query query, ResultStrategy strategy) {
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
@@ -300,7 +300,7 @@ public class Repository {
 	 * @param strategy
 	 * @return
 	 */
-	@PerforamanceLog
+	@PerformanceLog
 	public <E> E findByQuery(Query query, Map<String, Object> params,
 			ResultStrategy strategy) {
 		// validate arguments
