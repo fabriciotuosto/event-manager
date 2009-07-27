@@ -12,12 +12,12 @@ public class UtilsTest {
 
 	@Test
 	public void create_simple_array() {
-		assertNotNull(Utils.ArrayOf());
+		assertNotNull(Utils.arrayOf());
 	}
 
 	@Test
 	public <T> void test_creation_with_different_data() {
-		String[] array = Utils.ArrayOf("1", "2", "3");
+		String[] array = Utils.arrayOf("1", "2", "3");
 		assertNotNull(array);
 		String[] expected = {"1","2","3"};
 		assertArrayEquals(expected,array);

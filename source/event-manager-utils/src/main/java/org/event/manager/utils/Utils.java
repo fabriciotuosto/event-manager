@@ -25,7 +25,7 @@ public final class Utils {
 	 *            elements to be added to the array
 	 * @return an array containing the elements received as parameters
 	 */
-	public static <T> T[] ArrayOf(T... t) {
+	public static <T> T[] arrayOf(T... t) {
 		return t;
 	}
 
