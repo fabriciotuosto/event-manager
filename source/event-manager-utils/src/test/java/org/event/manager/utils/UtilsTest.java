@@ -34,6 +34,15 @@ public class UtilsTest {
 	}
 
 	@Test
+	public void invalid_null_emails() {
+		assertFalse(Utils.isEmailAdressValid(null));
+	}
+
+	@Test
+	public void invalid_null_images() {
+		assertFalse(Utils.isImageLinkValid(null));
+	}	
+	@Test
 	public void invalid_images() {
 		assertFalse(Utils.isImageLinkValid("http://goear.com/listen/7d13372"));
 	}

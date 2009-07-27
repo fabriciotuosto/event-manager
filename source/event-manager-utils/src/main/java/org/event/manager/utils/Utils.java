@@ -35,7 +35,7 @@ public final class Utils {
 	 * @return
 	 */
     public static boolean isEmailAdressValid(String adress){
-        return EMAIL_PATTERN.matcher(adress).matches();
+    	return validateWithPattern(EMAIL_PATTERN, adress);
     }
 
     /**
@@ -44,6 +44,10 @@ public final class Utils {
      * @return
      */
     public static boolean isImageLinkValid(String adress){
-        return IMAGE_URI_PATTERN.matcher(adress).matches();
+        return validateWithPattern(IMAGE_URI_PATTERN, adress);
+    }
+    
+    private static boolean validateWithPattern(Pattern pattern,String string){
+    	return string == null ? false : pattern.matcher(string).matches();
     }
 }
