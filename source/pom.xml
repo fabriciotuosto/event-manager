@@ -290,7 +290,7 @@
 		<google-collections.version>1.0-rc2</google-collections.version>
 		<hibernate.version>3.4.0.GA</hibernate.version>
 		<jpa.version>1.0</jpa.version>
-		<guice.version>1.0</guice.version>
+		<guice.version>2.0.1</guice.version>
 		<aopalliance.version>1.0</aopalliance.version>
 	</properties>
 </project>
