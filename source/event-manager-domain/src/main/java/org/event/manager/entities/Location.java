@@ -14,7 +14,7 @@ public class Location {
 
 	@Deprecated
 	public Location(Long id) {
-		// TODO Auto-generated constructor stub
+		setId(id);
 	}
 
 	@Id

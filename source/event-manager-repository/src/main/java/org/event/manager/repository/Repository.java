@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.apache.commons.lang.Validate;
-import org.event.annotations.repository.PerformanceLog;
+import org.event.annotations.annotations.PerformanceLog;
 import org.event.manager.repository.annotations.Transactional;
 
 import com.google.inject.Inject;

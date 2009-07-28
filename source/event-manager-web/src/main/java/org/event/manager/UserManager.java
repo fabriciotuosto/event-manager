@@ -17,9 +17,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.event.annotations.repository.PerformanceLog;
 import org.event.manager.entities.User;
 import org.event.manager.repository.Repository;
+import org.event.annotations.annotations.PerformanceLog;
+
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
 import org.jboss.resteasy.annotations.providers.jaxb.json.Mapped;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class UserManager {
 			.getLogger(UserManager.class);
 	@Context
 	HttpServletRequest request;
+    
 	private final Repository dao;
 
 	@Inject
@@ -46,13 +48,13 @@ public class UserManager {
 	@Path("/login")
 	@PerformanceLog
 	public String login(@FormParam("name") String name,
-			    @FormParam("password") String password) {
-		Map<String, Object> params = ImmutableMap.<String, Object> of("name",
-				name, "password", password);
+			            @FormParam("password") String password) {
+		Map<String, Object> params = ImmutableMap.<String, Object>
+                of("name", name, "password", password);
 		String result = "succesful";
 		try {
-			User user = dao.findUniqueByNamedQuery(User.FIND_BY_CREDENTIALS,
-					params);
+			User user = dao.findUniqueByNamedQuery
+                    (User.FIND_BY_CREDENTIALS, params);
 			log.debug("getting user with id = {}", user.getId());
 			request.getSession().setAttribute("user", user);
 		} catch (NoResultException e) {

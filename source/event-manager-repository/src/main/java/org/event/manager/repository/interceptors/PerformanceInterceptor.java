@@ -22,19 +22,19 @@ public class PerformanceInterceptor implements MethodInterceptor {
 	/**
 	 * Measures the time of the {@link MethodInvocation}
 	 * 
-	 * @param arg0
+	 * @param invocation
 	 * @throws Throwable
 	 */
 	@Override
-	public Object invoke(MethodInvocation arg0) throws Throwable {
+	public Object invoke(MethodInvocation invocation) throws Throwable {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		Object result = null;
 		try {
-			result = arg0.proceed();
+			result = invocation.proceed();
 		} finally {
 			watch.stop();
-			logger.info("{} -> finished in {}ms", arg0.getMethod().getName(),
+			logger.info("{} -> finished in {}ms", invocation.getMethod().getName(),
 					watch.toString());
 		}
 		return result;
