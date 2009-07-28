@@ -14,7 +14,6 @@
 	<packaging>war</packaging>
 	<version>${application.version}</version>
 	<name>Event Manager Web</name>
-	<url>http://maven.apache.org</url>
    
 	<dependencies>
 		<!-- Business logic dependency -->
