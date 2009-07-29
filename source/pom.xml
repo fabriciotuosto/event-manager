@@ -28,6 +28,19 @@
 		<developerConnection>scm:git:http://elendir.dyndns.org/git/event-manager/source</developerConnection>
 		<url>http://elendir.dyndns.org/git-web/?p=event-manager</url>
 	</scm>
+	
+	<developers>
+	    <developer>
+	      <name>Fabricio Tuosto</name>
+	      <id>tuosto</id>
+	      <email>fabricio.tuosto@gmail.com</email>
+	    </developer>
+	    <developer>
+	      <name>Gonzalo de Pedro</name>
+	      <id>dePedro</id>
+	      <email></email>
+	    </developer>	    
+    </developers>
 	<build>
 		<plugins>
 			<plugin>
