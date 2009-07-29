@@ -1,11 +1,11 @@
 package org.event.manager.repository.guice;
 
-import static com.google.inject.matcher.Matchers.annotatedWith;
-import static com.google.inject.matcher.Matchers.any;
+import static com.google.inject.matcher.Matchers.*;
 
 import javax.persistence.EntityManager;
 
 import org.event.annotations.annotations.PerformanceLog;
+import org.event.manager.repository.Repository;
 import org.event.manager.repository.annotations.Transactional;
 import org.event.manager.repository.interceptors.PerformanceInterceptor;
 import org.event.manager.repository.interceptors.TransactionInterceptor;
@@ -25,7 +25,7 @@ public class InterceptorModule extends AbstractModule {
 	@Override
 	protected void configure() {
 
-		bindInterceptor(any(), annotatedWith(Transactional.class),
+		bindInterceptor(subclassesOf(Repository.class), annotatedWith(Transactional.class),
 				new TransactionInterceptor());
 
 		bindInterceptor(any(), annotatedWith(PerformanceLog.class),
