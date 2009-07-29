@@ -165,7 +165,7 @@ public class User implements Serializable {
 	 * @param groups
 	 * @return
 	 */
-	public User addGroup(Group... groups) {
+	public User add(Group... groups) {
 		for (Group group : groups) {
 			this.groups.add(group);
 		}

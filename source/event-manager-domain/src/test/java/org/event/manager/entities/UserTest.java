@@ -7,6 +7,9 @@ package org.event.manager.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.event.manager.TestUtils;
 import org.junit.Test;
 
@@ -95,6 +98,15 @@ public class UserTest {
 	
 	@Test
 	@SuppressWarnings("deprecation")
+	public void user_equals_null_id(){
+		User first = new User();
+		User second = new User();
+		assertFalse(first.equals(second));
+	}
+		
+	
+	@Test
+	@SuppressWarnings("deprecation")
 	public void user_hashCode(){
 		User first = new User(ID);
 		User second = new User(ID);
@@ -109,11 +121,24 @@ public class UserTest {
 		Group group = new Group();
     	group.setName("Event Owners");
     	assertEquals(user.getGroups().size(), 0);
-    	user.addGroup(group,group);    	
+    	user.add(group,group);    	
     	assertEquals(user.getGroups().size(), 1);
     	Group retrieved = user.getGroups().iterator().next();  	
     	assertSame(retrieved, group);
 	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void adding_groups_iterables(){
+		User user = new User(ID);
+		Group group = new Group();
+    	group.setName("Event Owners");
+    	assertEquals(user.getGroups().size(), 0);
+    	user.add(Arrays.asList(group,group));    	
+    	assertEquals(user.getGroups().size(), 1);
+    	Group retrieved = user.getGroups().iterator().next();  	
+    	assertSame(retrieved, group);
+	}	
 	
 	@Test
 	@SuppressWarnings("deprecation")
@@ -127,4 +152,18 @@ public class UserTest {
     	User retrieved = user.getContacts().iterator().next();  	
     	assertSame(retrieved, contact);
 	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void adding_contacts_iterables(){
+		User user = new User(ID);
+		User contact = new User(ID);
+    	contact.setName("Developer");
+    	assertEquals(user.getContacts().size(), 0);
+    	List<User> users = Arrays.asList(contact,contact); 
+    	user.addContact(users);    	
+    	assertEquals(user.getContacts().size(), 1);
+    	User retrieved = user.getContacts().iterator().next();  	
+    	assertSame(retrieved, contact);
+	}	
 }

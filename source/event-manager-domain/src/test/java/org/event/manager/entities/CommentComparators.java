@@ -42,10 +42,9 @@ public class CommentComparators {
 	@Test
     public void should_order_comment_by_user_name(){
 		first.getCommenter().setName("A");
-		
 		User user2 = User.newUser("B", "b@b.com", "1234aA").build();
 		second.setCommenter(user2);		
-		TestUtils.test_comparable(first, first, second, Comment.DATE_DESCENDING_COMPARATOR);
+		TestUtils.test_comparable(second, second, first, Comment.USER_NAME_ASCENDING_COMPARATOR);
     }
 	
 	
