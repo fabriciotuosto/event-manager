@@ -23,7 +23,7 @@ public class Comment {
 	
 	public static final Ordering<Comment> DATE_ASCENDING_COMPARATOR = Ordering.from(Comparators.DATE_ASC);
 	public static final Ordering<Comment> DATE_DESCENDING_COMPARATOR = DATE_ASCENDING_COMPARATOR.reverse();
-	public static final Ordering<Comment> USER_NAME_ASCENDING_COMPARATOR = Ordering.from(Comparators.DATE_ASC);
+	public static final Ordering<Comment> USER_NAME_ASCENDING_COMPARATOR = Ordering.from(Comparators.USER_ASC);
 	
 	private Long id;
 	private Calendar when;
@@ -35,6 +35,12 @@ public class Comment {
 		super();
 	}
 	
+	@Deprecated
+	public Comment(Long id) {
+		Validate.notNull(id);
+		Validate.isTrue(id.longValue() > 0);
+		setId(id);
+	}
 	public static CommentBuilder newComment(User commenter,String comment){
 		return new CommentBuilder(commenter,comment);
 	}

@@ -56,4 +56,32 @@ public class CommentComparators {
         assertSame(first,commentComp.min(second,first));
         assertSame(first,commentComp.min(first,second));
     }
+	
+	
+	@Test(expected=IllegalArgumentException.class)
+    public void should_throw_exception_null_comments_(){
+        Ordering<Comment> commentComp = Comment.DATE_ASCENDING_COMPARATOR;
+        commentComp.compare(null, null);
+    }
+	
+	@Test(expected=IllegalArgumentException.class)
+    public void should_throw_exception_null_comments(){
+        Ordering<Comment> commentComp = Comment.USER_NAME_ASCENDING_COMPARATOR;
+        commentComp.compare(null, null);
+    }
+	
+	
+	@SuppressWarnings("deprecation")
+	@Test(expected=IllegalArgumentException.class)
+    public void should_throw_exception_second_comments(){
+        Ordering<Comment> commentComp = Comment.USER_NAME_ASCENDING_COMPARATOR;
+        commentComp.compare(new Comment(), null);
+    }
+	
+	@SuppressWarnings("deprecation")
+	@Test(expected=IllegalArgumentException.class)
+    public void should_throw_exception_null_users(){
+        Ordering<Comment> commentComp = Comment.USER_NAME_ASCENDING_COMPARATOR;
+        commentComp.compare(new Comment(), new Comment());
+    }		
 }

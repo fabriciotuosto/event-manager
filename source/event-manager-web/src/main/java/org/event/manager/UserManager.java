@@ -40,7 +40,7 @@ public class UserManager {
 	private final Repository dao;
 
 	@Inject
-	public UserManager(Repository dao) {
+	public UserManager(Repository dao,User user) {
 		this.dao = dao;
 	}
 

@@ -1,10 +1,12 @@
 package org.event.manager.guice;
 
 import org.event.manager.UserManager;
+import org.event.manager.entities.User;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
+import com.google.inject.servlet.ServletScopes;
 
 /**
  * 
@@ -29,10 +31,13 @@ public class ResourceModule extends AbstractModule {
 	 */
 	@Override
 	protected void configure() {
-		bind(String.class).annotatedWith(Names.named("persistent-unit")).toInstance("event-manager");
+		bind(String.class).annotatedWith(Names.named("persistent-unit"))
+                .toInstance("event-manager");
 		for (Class<?> clazz : resources) {
 			bind(clazz);
 		}
+		
+		bind(User.class).in(ServletScopes.SESSION);
 	}
 
 }

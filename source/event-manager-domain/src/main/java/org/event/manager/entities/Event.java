@@ -25,7 +25,11 @@ public class Event {
 	private Location location;
 	private Set<Photo> photos;
 	private Set<Comment> comments;
-	
+
+	public static EventBuilder newEvent(Location location) {
+		return new EventBuilder(location);
+	}
+    
 	@Deprecated
 	public Event(Long id) {
 		this();
@@ -137,13 +141,32 @@ public class Event {
 		return this;
 	}
 
-	public Event on(Location location) {
-		this.location = location;
+	public Event invite(Iterable<User> invitees) {
+		Validate.notNull(invitees);
+		for(User invitee : invitees){
+			this.users.add(invitee);
+		}
+		return this;
+	}	
+
+	public Event add(Iterable<Photo> photos) {
+		Validate.notNull(photos);
+		for(Photo photo : photos){
+			this.photos.add(photo);
+		}
 		return this;
 	}
 
-	public static EventBuilder newEvent(Location location) {
-		return new EventBuilder(location);
+	public Event add(Photo... photos) {
+		for(Photo photo : photos){
+			this.photos.add(photo);
+		}
+		return this;
+	}
+
+	public Event on(Location location) {
+		this.location = location;
+		return this;
 	}
 	
 	public static class EventBuilder implements Builder<Event> {
@@ -172,6 +195,22 @@ public class Event {
 			return this;
 		}
 
+		public EventBuilder invited(Iterable<User> invited) {
+			Validate.notNull(invited);
+			for(User u : invited){
+				users.add(u);
+			}
+			return this;
+		}
+		
+		public EventBuilder with(Iterable<Photo> photos) {
+			Validate.notNull(photos);
+			for(Photo photo : photos){
+				this.photos.add(photo);
+			}
+			return this;
+		}		
+		
 		public EventBuilder with(Photo... photos) {
 			for(Photo photo : photos){
 				this.photos.add(photo);
@@ -179,6 +218,13 @@ public class Event {
 			return this;
 		}
 
+	}
+	
+    public Event comment(Iterable<Comment> comments) {
+		for(Comment coment: comments){
+			this.comments.add(coment);
+		}
+		return this;
 	}
 
 	public Event comment(Comment... comments) {

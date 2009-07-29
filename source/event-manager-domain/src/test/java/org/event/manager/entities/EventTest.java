@@ -2,8 +2,10 @@ package org.event.manager.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.event.manager.TestUtils;
@@ -69,6 +71,23 @@ public class EventTest {
 	
 	@Test
 	@SuppressWarnings("deprecation")
+	public void invite_users(){
+		User invitee = new User(ID);
+		User invitee2 = new User(ID);
+		User invitee3 = new User(50L);
+		List<User> users = Arrays.asList(invitee,invitee2,invitee3);
+		Event event = new Event(ID);
+		assertNotNull(event.getUsers());
+		assertTrue(event.getUsers().isEmpty());
+		event.invite(users);
+		assertFalse(event.getUsers().isEmpty());
+        assertEquals(2,event.getUsers().size());
+		assertTrue(event.getUsers().contains(invitee));
+		assertTrue(event.getUsers().contains(invitee2));
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
 	public void should_be_in_specify_location(){
 		Location loc = new Location(ID);
 		Event event = new Event(ID).on(loc);		
@@ -91,6 +110,64 @@ public class EventTest {
 	
 	@Test
 	@SuppressWarnings("deprecation")
+	public void create_full_with_builder_user_iterables(){
+		Location loc = new Location(ID);
+		User a = new User(ID);
+		User b = new User(50L);
+		Event event = Event.newEvent(loc)
+						.invited(Arrays.asList(a,b))
+						.build();		
+		assertEquals(2,event.getUsers().size());
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void should_add_photos(){
+		Photo first = new Photo(ID);
+		Photo sec   = new Photo(11L);
+		Event event = new Event(ID).add(first,sec);
+		assertFalse(event.getPhotos().isEmpty());
+		assertEquals(2,event.getPhotos().size());
+	}
+
+	@Test	@SuppressWarnings("deprecation")
+	public void should_add_photos_iterables(){
+		Photo first = new Photo(ID);
+		Photo sec   = new Photo(11L);
+		Event event = new Event(ID).add(Arrays.asList(first,sec));
+		assertFalse(event.getPhotos().isEmpty());
+		assertEquals(2,event.getPhotos().size());
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void should_create_with_photos_iterables_and_builder(){
+		Location loc = new Location(ID);
+		Photo photo = new Photo(ID);
+		Photo photo2 = new Photo(11L);
+		Event event = Event.newEvent(loc)
+						.with(photo,photo2)
+						.build();		
+		assertFalse(event.getPhotos().isEmpty());
+		assertEquals(2,event.getPhotos().size());
+	}
+		
+	@Test
+	@SuppressWarnings("deprecation")
+	public void should_create_with_photos_and_builder(){
+		Location loc = new Location(ID);
+		Photo photo = new Photo(ID);
+		Photo photo2 = new Photo(11L);
+		Event event = Event.newEvent(loc)
+						.with(Arrays.asList(photo,photo2))
+						.build();		
+		assertFalse(event.getPhotos().isEmpty());
+		assertEquals(2,event.getPhotos().size());
+	}
+
+	
+	@Test
+	@SuppressWarnings("deprecation")
 	public void create_full_with_builder(){
 		Location loc = new Location(ID);
 		User a = new User(ID);
@@ -100,12 +177,31 @@ public class EventTest {
 						.invited(a,b)
 						.with(photo)
 						.build();		
-		assertTrue(event.getUsers().size() == 2);
+		assertEquals(2,event.getUsers().size());
 		assertFalse(event.getPhotos().isEmpty());
 		assertSame(photo, event.getPhotos().iterator().next());
 	}
 	
-	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void should_add_comments_iterables(){
+		User user = new User(ID);
+		Calendar yesterday = Calendar.getInstance();
+		yesterday.add(Calendar.DATE, -1);
+		Calendar today = Calendar.getInstance();
+		assertFalse(yesterday.equals(today));
+		
+		Comment first = Comment.newComment(user, "").build();
+		first.setWhen(yesterday);
+
+		Comment second = Comment.newComment(user, "").build();
+		second.setWhen(today);
+		
+		Event event = new Event();
+		Set<Comment> _result = event.comment(Arrays.asList(first,second)).getComments();
+		
+		assertEquals(2,_result.size());
+	}
 	@Test
 	@SuppressWarnings("deprecation")
 	public void must_return_ordered_comments(){
