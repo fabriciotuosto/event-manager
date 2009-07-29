@@ -221,6 +221,7 @@ public class Event {
 	}
 	
     public Event comment(Iterable<Comment> comments) {
+    	Validate.notNull(comments);
 		for(Comment coment: comments){
 			this.comments.add(coment);
 		}

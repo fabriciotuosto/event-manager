@@ -10,6 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.Validate;
+import org.event.manager.Builder;
+
 import com.google.common.collect.Sets;
 
 @Entity
@@ -21,8 +24,21 @@ public class Group {
 	private String name;
 	private Set<User> users;
 
+	@Deprecated
 	public Group() {
 		users = Sets.newHashSet();
+	}
+	
+	@Deprecated
+	public Group(Long id){
+		Validate.notNull(id);
+		Validate.isTrue(id.longValue() > 0);
+		setId(id);
+	}
+
+	private Group(GroupBuilder groupBuilder) {
+		setName(groupBuilder.name);
+		setUsers(groupBuilder.users);
 	}
 
 	@Id
@@ -44,13 +60,21 @@ public class Group {
 		this.users = users;
 	}
 
-	public Group addUser(User... users){
+	public Group add(User... users){
 		for(User user: users){
 			this.users.add(user);
 		}
 		return this;
 	}
 
+	public Group add(Iterable<User> users){
+		Validate.notNull(users);
+		for(User user: users){
+			this.users.add(user);
+		}
+		return this;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -59,4 +83,39 @@ public class Group {
 		this.name = name;
 	}
 
+	public static GroupBuilder newGroup(String groupName) {
+		return new GroupBuilder(groupName);
+	}
+	
+	public static class GroupBuilder implements Builder<Group>{
+		
+		private String name;
+		private Set<User> users;
+		
+		private GroupBuilder(String groupName) {
+			Validate.notNull(groupName);
+			this.name = groupName;
+			this.users = Sets.newHashSet();
+		}
+
+		@Override
+		public Group build() {
+			return new Group(this);
+		}
+
+		public GroupBuilder with(User... users) {
+			for(User user : users){
+				this.users.add(user);
+			}
+			return this;
+		}
+		
+		public GroupBuilder with(Iterable<User> users) {
+			Validate.notNull(users);
+			for(User user : users){
+				this.users.add(user);
+			}
+			return this;
+		}
+	}
 }

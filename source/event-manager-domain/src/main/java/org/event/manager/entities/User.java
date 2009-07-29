@@ -173,6 +173,19 @@ public class User implements Serializable {
 	}
 
 	/**
+	 * 
+	 * @param groups
+	 * @return
+	 */
+	public User add(Iterable<Group> groups) {
+		Validate.notNull(groups);
+		for (Group group : groups) {
+			this.groups.add(group);
+		}
+		return this;
+	}
+	
+	/**
 	 * @return the contacts
 	 */
 	@OneToMany
@@ -192,6 +205,19 @@ public class User implements Serializable {
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param contacs
+	 * @return
+	 */
+	public User addContact(Iterable<User> contacs) {
+		Validate.notNull(contacs);
+		for (User contact : contacs) {
+			this.contacts.add(contact);
+		}
+		return this;
+	}
+	
 	/**
 	 * @param contacts
 	 *            the contacts to set

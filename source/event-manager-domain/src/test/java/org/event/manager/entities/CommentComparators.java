@@ -8,9 +8,9 @@ package org.event.manager.entities;
 import com.google.common.collect.Ordering;
 import java.util.Calendar;
 
+import org.event.manager.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -35,11 +35,7 @@ public class CommentComparators {
 	
 	@Test
     public void should_order_comment_by_date(){
-        Ordering<Comment> commentComp = Comment.DATE_DESCENDING_COMPARATOR;
-        assertSame(first, commentComp.max(first, second));
-        assertSame(first, commentComp.max(second,first));
-        assertSame(second,commentComp.min(second,first));
-        assertSame(second,commentComp.min(first,second));
+        TestUtils.test_comparable(first, first, second, Comment.DATE_DESCENDING_COMPARATOR);
     }
 	
 
@@ -48,13 +44,8 @@ public class CommentComparators {
 		first.getCommenter().setName("A");
 		
 		User user2 = User.newUser("B", "b@b.com", "1234aA").build();
-		second.setCommenter(user2);
-		
-        Ordering<Comment> commentComp = Comment.USER_NAME_ASCENDING_COMPARATOR;
-        assertSame(second, commentComp.max(first, second));
-        assertSame(second, commentComp.max(second,first));
-        assertSame(first,commentComp.min(second,first));
-        assertSame(first,commentComp.min(first,second));
+		second.setCommenter(user2);		
+		TestUtils.test_comparable(first, first, second, Comment.DATE_DESCENDING_COMPARATOR);
     }
 	
 	
