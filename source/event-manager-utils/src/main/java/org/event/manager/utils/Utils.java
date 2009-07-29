@@ -13,9 +13,6 @@ public final class Utils {
 
 	private Utils() {}
 
-	
-	private static final Pattern EMAIL_PATTERN = Pattern.compile(".+@.+\\.[a-z]+");
-	private static final Pattern IMAGE_URI_PATTERN = Pattern.compile("^http:\\/\\/.+\\/.+\\.(png|jpg|gif|jpeg)$");
 	/**
 	 * Builds an array containing the parameters added to the method call
 	 * 
@@ -35,7 +32,7 @@ public final class Utils {
 	 * @return
 	 */
     public static boolean isEmailAdressValid(String adress){
-    	return validateWithPattern(EMAIL_PATTERN, adress);
+    	return validateWithPattern(getEmailPatter(), adress);
     }
 
     /**
@@ -44,10 +41,27 @@ public final class Utils {
      * @return
      */
     public static boolean isImageLinkValid(String adress){
-        return validateWithPattern(IMAGE_URI_PATTERN, adress);
+        return validateWithPattern(getImageLinkPattern(), adress);
     }
     
     private static boolean validateWithPattern(Pattern pattern,String string){
     	return string == null ? false : pattern.matcher(string).matches();
     }
+    
+    // Idiom to lazy load patterns matching so that there is not unnecessary creation
+    private static Pattern getEmailPatter(){
+    	return EmailPatternHolder.EMAIL_PATTERN;
+    }
+    
+    private static Pattern getImageLinkPattern(){
+    	return ImageLinkPatternHolder.LINK_PATTERN;
+    }
+
+    private static class ImageLinkPatternHolder {
+    	private static final Pattern LINK_PATTERN = Pattern.compile("^http:\\/\\/.+\\/.+\\.(png|jpg|gif|jpeg)$");
+	}
+    
+    private static class EmailPatternHolder {
+    	private static final Pattern EMAIL_PATTERN = Pattern.compile("^.+@.+\\.[a-z]+$");
+	}    
 }
