@@ -1,8 +1,6 @@
 package org.event.manager.entities;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -38,5 +36,25 @@ public class LocationTest {
 		Location location = Location.newLocation(name, address).build();
 		assertSame(name,location.getName());
 		assertSame(address,location.getAddress());
+	}
+	
+	@Test
+	public void should_create_location_with_builder_map_uri(){
+		String name = "OpenGallo";
+		String address = "Gallo 314";
+		Location location = Location.newLocation(name, address)
+									.mapLocation("http://www.kkaour.kk.net")
+									.build();
+		assertSame(name,location.getName());
+		assertSame(address,location.getAddress());
+	}	
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void should_set_and_return_uri(){
+		String uri = "http://www.gmail.com";
+		Location location = new Location();
+		location.setMapUri(uri);
+		assertEquals(uri,location.getMapUri());
 	}
 }

@@ -59,8 +59,8 @@ public class UserTest {
     }
     
 	@Test
-	@SuppressWarnings("deprecation")
     public void create_user_with_group(){
+		@SuppressWarnings("deprecation")
     	Group group = new Group();
     	group.setName("Event Owners");
     	

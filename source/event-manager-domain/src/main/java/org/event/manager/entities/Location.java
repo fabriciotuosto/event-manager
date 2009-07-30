@@ -1,5 +1,7 @@
 package org.event.manager.entities;
 
+import java.net.URI;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class Location {
 	private Long id;
 	private String name;
 	private String address;
+	private URI mapUri;
 	
 	@Deprecated
 	public Location() {
@@ -36,6 +39,7 @@ public class Location {
 	private Location(LocationBuilder builder){
 		setName(builder.name);
 		setAddress(builder.address);
+		mapUri = builder.mapLocation;
 	}
 	
 	@Id
@@ -64,10 +68,19 @@ public class Location {
 		this.address = address;
 	}
 	
+	public String getMapUri() {
+		return mapUri.toString();
+	}
+
+	public void setMapUri(String mapUri) {
+		this.mapUri = URI.create(mapUri);
+	}
+
 	public static class LocationBuilder implements Builder<Location>{
 
 		private final String name;
 		private final String address;
+		private URI mapLocation;
 		
 		private LocationBuilder(String name, String address) {
 			this.name = name;
@@ -77,6 +90,11 @@ public class Location {
 		@Override
 		public Location build() {
 			return new Location(this);
+		}
+
+		public LocationBuilder mapLocation(String string) {
+			mapLocation = URI.create(string);
+			return this;
 		}
 		
 	}

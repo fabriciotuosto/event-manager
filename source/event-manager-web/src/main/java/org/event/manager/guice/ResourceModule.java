@@ -2,6 +2,7 @@ package org.event.manager.guice;
 
 import org.event.manager.UserManager;
 import org.event.manager.entities.User;
+import org.event.manager.repository.Repository;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
@@ -38,6 +39,7 @@ public class ResourceModule extends AbstractModule {
 		}
 		
 		bind(User.class).in(ServletScopes.SESSION);
+		bind(Repository.class).in(ServletScopes.SESSION);
 	}
 
 }
