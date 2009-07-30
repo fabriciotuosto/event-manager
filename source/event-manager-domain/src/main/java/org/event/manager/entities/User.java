@@ -304,4 +304,9 @@ public class User implements Serializable {
 			return this;
 		}
 	}
+
+	public void invite(Invitation invitation) {
+		// TODO Auto-generated method stub
+		
+	}
 }

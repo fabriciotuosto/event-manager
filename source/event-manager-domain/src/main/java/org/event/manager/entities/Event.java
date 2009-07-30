@@ -23,6 +23,7 @@ public class Event {
 	private Long id;
 	private Set<User> users;
 	private Location location;
+	private Invitation invitation;
 	private Set<Photo> photos;
 	private Set<Comment> comments;
 
@@ -40,6 +41,7 @@ public class Event {
 
 	@Deprecated
 	public Event() {
+		this.invitation = new Invitation();
 		users = Sets.newHashSet();
 		photos = Sets.newHashSet();
 		comments = Sets.newTreeSet(Comment.DATE_DESCENDING_COMPARATOR);
@@ -233,5 +235,12 @@ public class Event {
 			this.comments.add(coment);
 		}
 		return this;
+	}
+
+	public void sendInvitation() {
+		invitation = new Invitation();
+		for(User user : users){
+			invitation.invite(user);
+		}
 	}
 }

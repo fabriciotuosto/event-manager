@@ -1,6 +1,7 @@
 package org.event.manager.entities;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -230,6 +231,22 @@ public class EventTest {
 		while(expected.hasNext()){
 			assertSame(expected.next(), result.next());
 		}
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void should_invite_users(){
+		Location loc = new Location(ID);
+		User a = mock(User.class);
+		User b = mock(User.class);
+		Photo photo = null;
+		Event event = Event.newEvent(loc)
+						.invited(a,b)
+						.with(photo)
+						.build();		
 		
+		event.sendInvitation();
+		verify(a).invite(isA(Invitation.class));
+		verify(b).invite(isA(Invitation.class));
 	}
 }
