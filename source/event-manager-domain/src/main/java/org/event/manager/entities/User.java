@@ -149,6 +149,7 @@ public class User implements Serializable {
 	 * @param builder
 	 */
 	private User(UserBuilder builder) {
+		this();
 		setName(builder.name);
 		setEmail(builder.email);
 		setPassword(builder.password);
@@ -203,7 +204,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the groups
-	 */
+	 */ 
 	@OneToMany
 	public Set<Group> getGroups() {
 		return groups;
@@ -284,7 +285,6 @@ public class User implements Serializable {
 		this.contacts = contacts;
 	}
 
-
 	public Set<Invitation> getPendingResponeInvitations() {
 		return pendingResponeInvitations;
 	}
@@ -302,7 +302,6 @@ public class User implements Serializable {
 		this.respondedInvitations = respondedInvitations;
 	}
 	
-	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
@@ -327,8 +326,9 @@ public class User implements Serializable {
 		return id.hashCode();
 	}
 
-	public void invite(Invitation invitation) {
+	public InvitationResponse invite(Invitation invitation) {
 		pendingResponeInvitations.add(invitation);
+		return new InvitationResponse(this, invitation);
 	}
 
 	public InvitationResponse respondTo(Invitation invitation) {
@@ -349,7 +349,8 @@ public class User implements Serializable {
 		}
 
 		public InvitationResponse with(Response response) {
-			user.respondedInvitations.remove(invitation);
+			user.pendingResponeInvitations.remove(invitation);
+			user.respondedInvitations.add(invitation);
 			invitation.respond(user,response);
 			return this;
 		}

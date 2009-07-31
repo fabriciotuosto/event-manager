@@ -183,9 +183,9 @@ public class UserTest {
 		Invitation invitation = new Invitation(event);
 		User user = new User(ID);
 		invitation.invite(user);
-		assertTrue(invitation.denied().contains(user));
-		assertFalse(invitation.accepted().contains(user));
+		assertTrue(invitation.getDenied().contains(user));
+		assertFalse(invitation.getAccepted().contains(user));
 		user.respondTo(invitation).accept();
-		assertTrue(invitation.accepted().contains(user));
+		assertTrue(invitation.getAccepted().contains(user));
 	}
 }
