@@ -98,15 +98,6 @@ public class UserTest {
 	
 	@Test
 	@SuppressWarnings("deprecation")
-	public void user_equals_null_id(){
-		User first = new User();
-		User second = new User();
-		assertFalse(first.equals(second));
-	}
-		
-	
-	@Test
-	@SuppressWarnings("deprecation")
 	public void user_hashCode(){
 		User first = new User(ID);
 		User second = new User(ID);

@@ -13,6 +13,7 @@ import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.event.manager.Builder;
 
 import com.google.common.collect.Sets;
@@ -142,16 +143,13 @@ public class Event {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Event other = (Event) obj;
-		if (!id.equals(other.id))
-			return false;
-		return true;
+		boolean equals = false;
+		if (obj instanceof Event){
+			Event other = (Event) obj;
+			equals = this== obj || new EqualsBuilder()
+								.append(this.id, other.getId()).isEquals();		
+		}
+		return equals;
 	}
 
 	public Event invite(User... invitees) {

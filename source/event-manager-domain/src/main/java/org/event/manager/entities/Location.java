@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.event.manager.Builder;
 
 @Entity
@@ -74,6 +75,27 @@ public class Location {
 
 	public void setMapUri(String mapUri) {
 		this.mapUri = URI.create(mapUri);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj instanceof Location){
+			Location other = (Location) obj;
+			equals = this== obj || new EqualsBuilder()
+								.append(this.address, other.address)
+								.append(this.name, other.name).isEquals();		
+		}
+		return equals;
 	}
 
 	public static class LocationBuilder implements Builder<Location>{

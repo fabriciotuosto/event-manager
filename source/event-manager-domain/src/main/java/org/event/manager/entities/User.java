@@ -15,6 +15,7 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.event.manager.Builder;
 import org.event.manager.utils.Utils;
@@ -307,24 +308,24 @@ public class User implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		boolean retval = false;
-		if (this == obj){
-			retval = true;
-		}
-		if (obj instanceof User) {
-			User other = (User) obj;
-			if (this.id != null) {
-				retval = this.id.equals(other.id);
-			}
-		}
-		return retval;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
-	public int hashCode() {
-		return id.hashCode();
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj instanceof User){
+			User other = (User) obj;
+			equals = this== obj || new EqualsBuilder()
+								.append(this.id, other.id).isEquals();		
+		}
+		return equals;
 	}
+
 
 	public InvitationResponse invite(Invitation invitation) {
 		pendingResponeInvitations.add(invitation);

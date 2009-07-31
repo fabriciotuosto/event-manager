@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.event.manager.Builder;
 
 import com.google.common.collect.Ordering;
@@ -85,6 +86,25 @@ public class Comment {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj instanceof Location){
+			Comment other = (Comment) obj;
+			equals = new EqualsBuilder()
+								.append(this.id, other.id).isEquals();		
+		}
+		return equals;	
 	}
 
 	public static class CommentBuilder implements Builder<Comment>{

@@ -11,16 +11,13 @@ import org.junit.Test;
 public class TestUtils {
 
 	@Ignore
-	public static <T,D> void equalsTest(T first,T second,T third, D different,T... others){
+	public static <T,D> void equalsTest(T first,T second,T third, D different){
 		assertFalse(first.equals(different));
 		assertTrue(first.equals(second));
 		assertTrue(second.equals(third));
 		assertTrue(first.equals(third));
 		assertTrue(first.equals(first));
 		assertFalse(first.equals(null));
-		for(T t : others){
-			assertFalse(first.equals(t));
-		}
 	}
 	
 	@Ignore

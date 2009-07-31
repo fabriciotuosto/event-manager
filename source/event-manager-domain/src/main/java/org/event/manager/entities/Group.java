@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.event.manager.Builder;
 
 import com.google.common.collect.Sets;
@@ -87,6 +88,25 @@ public class Group {
 		return new GroupBuilder(groupName);
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj instanceof Location){
+			Group other = (Group) obj;
+			equals = this== obj || new EqualsBuilder()
+								.append(this.name, other.name).isEquals();		
+		}
+		return equals;	
+	}
+
 	public static class GroupBuilder implements Builder<Group>{
 		
 		private String name;

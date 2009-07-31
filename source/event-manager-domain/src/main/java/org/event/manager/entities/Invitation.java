@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
@@ -103,19 +104,13 @@ public class Invitation {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Invitation other = (Invitation) obj;
-		if (event == null) {
-			if (other.event != null)
-				return false;
-		} else if (!event.equals(other.event))
-			return false;
-		return true;
+		boolean equals = false;
+		if (obj instanceof Invitation){
+			Invitation other = (Invitation) obj;
+			equals = new EqualsBuilder()
+								.append(this.event, other.event).isEquals();		
+		}
+		return equals;
 	}
 
 }
