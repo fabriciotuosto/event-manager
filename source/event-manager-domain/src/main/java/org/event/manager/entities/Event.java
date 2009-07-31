@@ -172,11 +172,12 @@ public class Event {
 	}
 	
 	
-	public void sendInvitation() {
+	public Invitation sendInvitation() {
 		invitation = new Invitation(this);
 		for(User user : users){
 			invitation.invite(user);
 		}
+		return invitation;
 	}
 	
 	

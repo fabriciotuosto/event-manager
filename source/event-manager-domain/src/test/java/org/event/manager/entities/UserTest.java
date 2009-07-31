@@ -180,9 +180,8 @@ public class UserTest {
 	@Test @SuppressWarnings("deprecation")
 	public void should_record_response_in_invitation(){
 		Event event = new Event(ID);
-		Invitation invitation = new Invitation(event);
 		User user = new User(ID);
-		invitation.invite(user);
+		Invitation invitation = event.invite(user).sendInvitation();
 		assertTrue(invitation.getDenied().contains(user));
 		assertFalse(invitation.getAccepted().contains(user));
 		user.respondTo(invitation).accept();
