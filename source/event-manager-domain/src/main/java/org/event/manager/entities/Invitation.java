@@ -9,17 +9,22 @@ import org.apache.commons.lang.Validate;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets;
 
 @Entity
 @XmlRootElement
 public class Invitation {
 
 	private SetMultimap<Response, User> responses;
+	private Set<User> unresponded;
+	
+
 	private Event event;
 
 	@Deprecated
 	public Invitation() {
 		responses = LinkedHashMultimap.create();
+		unresponded = Sets.newHashSet();
 	}
 
 	public Invitation(Event event) {
@@ -28,6 +33,13 @@ public class Invitation {
 		this.event = event;
 	}
 
+	public Set<User> getUnresponded() {
+		return unresponded;
+	}
+	
+	public void setUnresponded(Set<User> unresponded) {
+		this.unresponded = unresponded;
+	}
 	public Event getEvent() {
 		return event;
 	}
@@ -38,7 +50,7 @@ public class Invitation {
 
 	public Invitation invite(User user) {
 		user.invite(this);
-		responses.put(Response.NO, user);
+		getUnresponded().add(user);
 		return this;
 	}
 	
@@ -77,6 +89,7 @@ public class Invitation {
 
 	public void respond(User user, Response response) {
 		responses.values().remove(user);
+		unresponded.remove(user);
 		responses.put(response, user);
 	}
 

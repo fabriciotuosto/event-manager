@@ -182,9 +182,10 @@ public class UserTest {
 		Event event = new Event(ID);
 		User user = new User(ID);
 		Invitation invitation = event.invite(user).sendInvitation();
-		assertTrue(invitation.getDenied().contains(user));
+		assertTrue(invitation.getUnresponded().contains(user));
 		assertFalse(invitation.getAccepted().contains(user));
-		user.respondTo(invitation).accept();
+		user.respondTo(invitation).yes();
+		assertFalse(invitation.getUnresponded().contains(user));
 		assertTrue(invitation.getAccepted().contains(user));
 		assertTrue(user.getRespondedInvitations().contains(invitation));
 	}

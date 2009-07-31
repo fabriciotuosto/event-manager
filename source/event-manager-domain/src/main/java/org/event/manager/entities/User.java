@@ -344,10 +344,17 @@ public class User implements Serializable {
 			this.invitation = invitation;
 		}
 
-		public InvitationResponse accept() {
+		public InvitationResponse yes() {
 			return with(Response.YES);
 		}
 
+		public InvitationResponse no() {
+			return with(Response.NO);
+		}
+		
+		public InvitationResponse maybe() {
+			return with(Response.MAYBE);
+		}
 		public InvitationResponse with(Response response) {
 			user.pendingResponeInvitations.remove(invitation);
 			user.respondedInvitations.add(invitation);
