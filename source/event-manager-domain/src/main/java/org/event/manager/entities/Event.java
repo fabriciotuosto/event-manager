@@ -1,5 +1,6 @@
 package org.event.manager.entities;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -26,11 +27,27 @@ public class Event {
 	private Invitation invitation;
 	private Set<Photo> photos;
 	private Set<Comment> comments;
-
-	public static EventBuilder newEvent(Location location) {
-		return new EventBuilder(location);
+	private Calendar time;
+	
+	public Invitation getInvitation() {
+		return invitation;
 	}
-    
+
+	public void setInvitation(Invitation invitation) {
+		this.invitation = invitation;
+	}
+
+	public Calendar getTime() {
+		return time;
+	}
+
+	public void setTime(Calendar time) {
+		this.time = time;
+	}
+
+	public static EventBuilder newEvent(Location location,Calendar time) {
+		return new EventBuilder(location,time);
+	}
 	@Deprecated
 	public Event(Long id) {
 		this();
@@ -52,6 +69,7 @@ public class Event {
 		setLocation(eventBuilder.location);
 		setPhotos(eventBuilder.photos);
 		setComments(eventBuilder.comments);
+		setTime(eventBuilder.time);
 	}
 
 	@Id
@@ -186,15 +204,17 @@ public class Event {
 		private Location location;
 		private Set<Photo> photos;
 		private Set<Comment> comments;
+		private Calendar time;
 		
-		private EventBuilder(Location location){
+		private EventBuilder(Location location,Calendar time){
 			Validate.notNull(location);
+			Validate.notNull(time);
+			this.time = time;
 			this.users = Sets.newHashSet();
 			this.location = location;
 			this.photos = Sets.newHashSet();
 			this.comments = Sets.newTreeSet(Comment.DATE_DESCENDING_COMPARATOR);
 		}
-		
 		@Override
 		public Event build() {
 			return new Event(this);

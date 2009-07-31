@@ -186,5 +186,6 @@ public class UserTest {
 		assertFalse(invitation.getAccepted().contains(user));
 		user.respondTo(invitation).accept();
 		assertTrue(invitation.getAccepted().contains(user));
+		assertTrue(user.getRespondedInvitations().contains(invitation));
 	}
 }

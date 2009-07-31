@@ -99,23 +99,25 @@ public class EventTest {
 	@SuppressWarnings("deprecation")
 	public void create_with_builder(){
 		Location loc = new Location(ID);
-		Event event = Event.newEvent(loc).build();
+		Calendar time = Calendar.getInstance();
+		Event event = Event.newEvent(loc,time).build();
 		assertNotNull(event);
 		assertSame(loc,event.getLocation());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void create_with_builder_null_location(){
-		Event.newEvent(null).build();
+		Event.newEvent(null,null).build();
 	}
 	
 	@Test
 	@SuppressWarnings("deprecation")
 	public void create_full_with_builder_user_iterables(){
+		Calendar time = Calendar.getInstance();
 		Location loc = new Location(ID);
 		User a = new User(ID);
 		User b = new User(50L);
-		Event event = Event.newEvent(loc)
+		Event event = Event.newEvent(loc,time)
 						.invited(Arrays.asList(a,b))
 						.build();		
 		assertEquals(2,event.getUsers().size());
@@ -143,10 +145,11 @@ public class EventTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void should_create_with_photos_iterables_and_builder(){
+		Calendar time = Calendar.getInstance();
 		Location loc = new Location(ID);
 		Photo photo = new Photo(ID);
 		Photo photo2 = new Photo(11L);
-		Event event = Event.newEvent(loc)
+		Event event = Event.newEvent(loc,time)
 						.with(photo,photo2)
 						.build();		
 		assertFalse(event.getPhotos().isEmpty());
@@ -156,10 +159,11 @@ public class EventTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void should_create_with_photos_and_builder(){
+		Calendar time = Calendar.getInstance();
 		Location loc = new Location(ID);
 		Photo photo = new Photo(ID);
 		Photo photo2 = new Photo(11L);
-		Event event = Event.newEvent(loc)
+		Event event = Event.newEvent(loc,time)
 						.with(Arrays.asList(photo,photo2))
 						.build();		
 		assertFalse(event.getPhotos().isEmpty());
@@ -170,11 +174,12 @@ public class EventTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void create_full_with_builder(){
+		Calendar time = Calendar.getInstance();
 		Location loc = new Location(ID);
 		User a = new User(ID);
 		User b = new User(50L);
 		Photo photo = null;
-		Event event = Event.newEvent(loc)
+		Event event = Event.newEvent(loc,time)
 						.invited(a,b)
 						.with(photo)
 						.build();		
@@ -236,11 +241,12 @@ public class EventTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void should_invite_users(){
+		Calendar time = Calendar.getInstance();
 		Location loc = new Location(ID);
 		User a = mock(User.class);
 		User b = mock(User.class);
 		Photo photo = null;
-		Event event = Event.newEvent(loc)
+		Event event = Event.newEvent(loc,time)
 						.invited(a,b)
 						.with(photo)
 						.build();		
