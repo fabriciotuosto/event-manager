@@ -171,6 +171,15 @@ public class Event {
 		return this;
 	}
 	
+	
+	public void sendInvitation() {
+		invitation = new Invitation(this);
+		for(User user : users){
+			invitation.invite(user);
+		}
+	}
+	
+	
 	public static class EventBuilder implements Builder<Event> {
 		private Set<User> users;
 		private Location location;
@@ -237,10 +246,5 @@ public class Event {
 		return this;
 	}
 
-	public void sendInvitation() {
-		invitation = new Invitation();
-		for(User user : users){
-			invitation.invite(user);
-		}
-	}
+
 }

@@ -166,4 +166,26 @@ public class UserTest {
     	User retrieved = user.getContacts().iterator().next();  	
     	assertSame(retrieved, contact);
 	}	
+	
+	
+	@Test @SuppressWarnings("deprecation")
+	public void should_add_pending_invitation(){
+		Event event = new Event(ID);
+		Invitation invitation = new Invitation(event);
+		User user = new User(ID);
+		user.invite(invitation);
+		assertTrue(user.getPendingResponeInvitations().contains(invitation));
+	}
+	
+	@Test @SuppressWarnings("deprecation")
+	public void should_record_response_in_invitation(){
+		Event event = new Event(ID);
+		Invitation invitation = new Invitation(event);
+		User user = new User(ID);
+		invitation.invite(user);
+		assertTrue(invitation.denied().contains(user));
+		assertFalse(invitation.accepted().contains(user));
+		user.respondTo(invitation).accept();
+		assertTrue(invitation.accepted().contains(user));
+	}
 }

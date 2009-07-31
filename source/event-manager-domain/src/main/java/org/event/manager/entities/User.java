@@ -40,7 +40,63 @@ public class User implements Serializable {
 	private String password;
 	private Set<Group> groups;
 	private Set<User> contacts;
+	private Set<Invitation> respondedInvitations;
+	private Set<Invitation> pendingResponeInvitations;
 
+	public static class UserBuilder implements Builder<User> {
+		private final String name;
+		private final String email;
+		private final String password;
+		private Set<Group> groups;
+		private Set<User> contacts;
+
+		private UserBuilder(String name, String email, String password) {
+			Validate.notNull(name, "The name of the user cannot be null");
+			Validate.notNull(password,
+					"The password of the user cannot be null");
+			Validate.notNull(email, "The email of the user cannot be null");
+			Validate.isTrue(Utils.isEmailAdressValid(email),
+					"The email must be a valid mail address");
+			this.name = name;
+			this.email = email;
+			this.password = password;
+			this.groups = Sets.newHashSet();
+			this.contacts = Sets.newHashSet();
+		}
+
+		/**
+		 * 
+		 */
+		@Override
+		public User build() {
+			return new User(this);
+		}
+
+		/**
+		 * 
+		 * @param groups
+		 * @return
+		 */
+		public UserBuilder inGroup(Group... groups) {
+			for (Group group : groups) {
+				this.groups.add(group);
+			}
+			return this;
+		}
+
+		/**
+		 * 
+		 * @param contacts
+		 * @return
+		 */
+		public UserBuilder withContacts(User... contacts) {
+			for(User contact : contacts){
+				this.contacts.add(contact);
+			}
+			return this;
+		}
+	}
+	
 	/**
 	 * 
 	 * @param name
@@ -65,6 +121,8 @@ public class User implements Serializable {
 		super();
 		this.groups = Sets.newHashSet();
 		this.contacts = Sets.newHashSet();
+		this.pendingResponeInvitations = Sets.newHashSet();
+		this.respondedInvitations = Sets.newHashSet();
 	}
 
 	/**
@@ -226,6 +284,24 @@ public class User implements Serializable {
 		this.contacts = contacts;
 	}
 
+
+	public Set<Invitation> getPendingResponeInvitations() {
+		return pendingResponeInvitations;
+	}
+
+	public void setPendingResponeInvitations(
+			Set<Invitation> pendingResponeInvitations) {
+		this.pendingResponeInvitations = pendingResponeInvitations;
+	}
+	
+	public Set<Invitation> getRespondedInvitations() {
+		return respondedInvitations;
+	}
+
+	public void setRespondedInvitations(Set<Invitation> respondedInvitations) {
+		this.respondedInvitations = respondedInvitations;
+	}
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
@@ -251,62 +327,31 @@ public class User implements Serializable {
 		return id.hashCode();
 	}
 
-	public static class UserBuilder implements Builder<User> {
-		private final String name;
-		private final String email;
-		private final String password;
-		private Set<Group> groups;
-		private Set<User> contacts;
-
-		private UserBuilder(String name, String email, String password) {
-			Validate.notNull(name, "The name of the user cannot be null");
-			Validate.notNull(password,
-					"The password of the user cannot be null");
-			Validate.notNull(email, "The email of the user cannot be null");
-			Validate.isTrue(Utils.isEmailAdressValid(email),
-					"The email must be a valid mail address");
-			this.name = name;
-			this.email = email;
-			this.password = password;
-			this.groups = Sets.newHashSet();
-			this.contacts = Sets.newHashSet();
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		public User build() {
-			return new User(this);
-		}
-
-		/**
-		 * 
-		 * @param groups
-		 * @return
-		 */
-		public UserBuilder inGroup(Group... groups) {
-			for (Group group : groups) {
-				this.groups.add(group);
-			}
-			return this;
-		}
-
-		/**
-		 * 
-		 * @param contacts
-		 * @return
-		 */
-		public UserBuilder withContacts(User... contacts) {
-			for(User contact : contacts){
-				this.contacts.add(contact);
-			}
-			return this;
-		}
+	public void invite(Invitation invitation) {
+		pendingResponeInvitations.add(invitation);
 	}
 
-	public void invite(Invitation invitation) {
-		// TODO Auto-generated method stub
+	public InvitationResponse respondTo(Invitation invitation) {
+		return new InvitationResponse(this, invitation);
+	}
+
+	public class InvitationResponse{
+		private final User user;
+		private final Invitation invitation;
 		
+		private InvitationResponse(User user,Invitation invitation) {
+			this.user = user;
+			this.invitation = invitation;
+		}
+
+		public InvitationResponse accept() {
+			return with(Response.YES);
+		}
+
+		public InvitationResponse with(Response response) {
+			user.respondedInvitations.remove(invitation);
+			invitation.respond(user,response);
+			return this;
+		}
 	}
 }
