@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
+import org.event.manager.TestUtils;
 import org.junit.Test;
 
 public class GroupTest {
@@ -79,4 +80,25 @@ public class GroupTest {
 		group.add(Arrays.asList(first,second));
 		assertEquals(2,group.getUsers().size());
 	}	
+	
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void group_hashcode(){
+		Group first = Group.newGroup("same").build();
+		Group second = Group.newGroup("same").build();
+		Group different = Group.newGroup("different").build();
+		TestUtils.hashCodeTest(first, second, different);
+		Location nullID = new Location();
+		assertEquals(31*31,nullID.hashCode());
+	}
+	
+	@Test
+	public void group_equals(){
+		Group first = Group.newGroup("same").build();
+		Group second = Group.newGroup("same").build();
+		Group third = Group.newGroup("same").build();
+		Object object = new Object();
+		TestUtils.equalsTest(first, second, third, object);
+	}
 }

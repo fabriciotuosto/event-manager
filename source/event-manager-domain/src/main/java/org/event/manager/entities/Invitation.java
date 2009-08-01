@@ -31,7 +31,7 @@ public class Invitation {
 	public Invitation(Event event) {
 		this();
 		Validate.notNull(event);
-		this.event = event;
+		setEvent(event);
 	}
 
 	public Set<User> getUnresponded() {

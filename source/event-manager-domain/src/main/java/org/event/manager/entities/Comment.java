@@ -99,7 +99,7 @@ public class Comment {
 	@Override
 	public boolean equals(Object obj) {
 		boolean equals = false;
-		if (obj instanceof Location){
+		if (obj instanceof Comment){
 			Comment other = (Comment) obj;
 			equals = new EqualsBuilder()
 								.append(this.id, other.id).isEquals();		

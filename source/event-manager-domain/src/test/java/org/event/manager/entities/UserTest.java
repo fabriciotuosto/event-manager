@@ -103,6 +103,8 @@ public class UserTest {
 		User second = new User(ID);
 		User different = new User(500L);
 		TestUtils.hashCodeTest(first, second, different);
+		User nullID = new User();
+		assertEquals(31,nullID.hashCode());
 	}
 	
 	@Test

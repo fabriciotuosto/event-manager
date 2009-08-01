@@ -2,6 +2,7 @@ package org.event.manager.entities;
 
 import static org.junit.Assert.*;
 
+import org.event.manager.TestUtils;
 import org.junit.Test;
 
 public class LocationTest {
@@ -56,5 +57,27 @@ public class LocationTest {
 		Location location = new Location();
 		location.setMapUri(uri);
 		assertEquals(uri,location.getMapUri());
+	}
+	
+	@Test
+	@SuppressWarnings("deprecation")
+	public void location_hashCode(){
+		Location first = Location.newLocation("Same", "same address").build();
+		Location second = Location.newLocation("Same", "same address").build();
+		Location different = Location.newLocation("ame", "same address").build();
+		Location _different = Location.newLocation("ame", "same adres").build();
+		TestUtils.hashCodeTest(first, second, different);
+		TestUtils.hashCodeTest(first, second, _different);
+		Location nullID = new Location();
+		assertEquals(31*31,nullID.hashCode());
+	}
+	
+	@Test
+	public void location_equals(){
+		Location first = Location.newLocation("Same", "same address").build();
+		Location second = Location.newLocation("Same", "same address").build();
+		Location third = Location.newLocation("Same", "same address").build();
+		Object object = new Object();
+		TestUtils.equalsTest(first, second, third, object);
 	}
 }

@@ -336,7 +336,7 @@ public class User implements Serializable {
 		return new InvitationResponse(this, invitation);
 	}
 
-	public class InvitationResponse{
+	public static class InvitationResponse{
 		private final User user;
 		private final Invitation invitation;
 		

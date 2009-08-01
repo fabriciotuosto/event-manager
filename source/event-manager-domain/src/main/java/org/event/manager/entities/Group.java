@@ -99,7 +99,7 @@ public class Group {
 	@Override
 	public boolean equals(Object obj) {
 		boolean equals = false;
-		if (obj instanceof Location){
+		if (obj instanceof Group){
 			Group other = (Group) obj;
 			equals = this== obj || new EqualsBuilder()
 								.append(this.name, other.name).isEquals();		
