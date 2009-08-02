@@ -65,9 +65,9 @@ public class EventTest {
 	public void invite_user(){
 		User invitee = new User(ID);
 		Event event = new Event(ID).invite(invitee);
-		assertNotNull(event.getUsers());
-		assertFalse(event.getUsers().isEmpty());
-		assertSame(invitee, event.getUsers().iterator().next());
+		assertNotNull(event.getInvitation().getUnresponded());
+		assertFalse(event.getInvitation().getUnresponded().isEmpty());
+		assertSame(invitee, event.getInvitation().getUnresponded().iterator().next());
 	}
 	
 	@Test
@@ -78,13 +78,13 @@ public class EventTest {
 		User invitee3 = new User(50L);
 		List<User> users = Arrays.asList(invitee,invitee2,invitee3);
 		Event event = new Event(ID);
-		assertNotNull(event.getUsers());
-		assertTrue(event.getUsers().isEmpty());
+		assertNotNull(event.getInvitation().getUnresponded());
+		assertTrue(event.getInvitation().getUnresponded().isEmpty());
 		event.invite(users);
-		assertFalse(event.getUsers().isEmpty());
-        assertEquals(2,event.getUsers().size());
-		assertTrue(event.getUsers().contains(invitee));
-		assertTrue(event.getUsers().contains(invitee2));
+		assertFalse(event.getInvitation().getUnresponded().isEmpty());
+        assertEquals(2,event.getInvitation().getUnresponded().size());
+		assertTrue(event.getInvitation().getUnresponded().contains(invitee));
+		assertTrue(event.getInvitation().getUnresponded().contains(invitee2));
 	}
 	
 	@Test
@@ -120,7 +120,7 @@ public class EventTest {
 		Event event = Event.newEvent(loc,time)
 						.invited(Arrays.asList(a,b))
 						.build();		
-		assertEquals(2,event.getUsers().size());
+		assertEquals(2,event.getInvitation().getUnresponded().size());
 	}
 	
 	@Test
@@ -183,7 +183,7 @@ public class EventTest {
 						.invited(a,b)
 						.with(photo)
 						.build();		
-		assertEquals(2,event.getUsers().size());
+		assertEquals(2,event.getInvitation().getUnresponded().size());
 		assertFalse(event.getPhotos().isEmpty());
 		assertSame(photo, event.getPhotos().iterator().next());
 	}
@@ -250,9 +250,7 @@ public class EventTest {
 						.invited(a,b)
 						.with(photo)
 						.build();		
-		
-		event.sendInvitation();
-		verify(a).invite(isA(Invitation.class));
-		verify(b).invite(isA(Invitation.class));
+		verify(a).invite(event.getInvitation());
+		verify(b).invite(event.getInvitation());
 	}
 }

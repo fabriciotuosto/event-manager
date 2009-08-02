@@ -10,6 +10,8 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.event.manager.Builder;
 import org.event.manager.utils.Utils;
@@ -113,22 +115,18 @@ public class Photo {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean retval = false;
-		if (this == obj){
-			retval = true;
-		}
-		if (obj instanceof Photo) {
+		boolean equals = false;
+		if (obj instanceof Photo){
 			Photo other = (Photo) obj;
-			if (this.id != null) {
-				retval = this.id.equals(other.id);
-			}
+			equals = this== obj || new EqualsBuilder()
+								.append(this.id, other.id).isEquals();		
 		}
-		return retval;
+		return equals;
 	}
 
 	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return new HashCodeBuilder().append(31).append(id).toHashCode();
 	}
 	
 	public static class PhotoBuilder implements Builder<Photo>{

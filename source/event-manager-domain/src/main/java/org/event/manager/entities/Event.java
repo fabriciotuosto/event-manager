@@ -23,7 +23,6 @@ import com.google.common.collect.Sets;
 public class Event {
 
 	private Long id;
-	private Set<User> users;
 	private Location location;
 	private Invitation invitation;
 	private Set<Photo> photos;
@@ -59,18 +58,18 @@ public class Event {
 
 	@Deprecated
 	public Event() {
-		this.invitation = new Invitation();
-		users = Sets.newHashSet();
 		photos = Sets.newHashSet();
 		comments = Sets.newTreeSet(Comment.DATE_DESCENDING_COMPARATOR);
+		setInvitation(new Invitation(this));
 	}
 
 	private Event(EventBuilder eventBuilder) {
-		setUsers(eventBuilder.users);
+		this();
 		setLocation(eventBuilder.location);
 		setPhotos(eventBuilder.photos);
 		setComments(eventBuilder.comments);
 		setTime(eventBuilder.time);
+		getInvitation().invite(eventBuilder.users);
 	}
 
 	@Id
@@ -81,15 +80,6 @@ public class Event {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	@OneToMany(targetEntity = User.class)
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
 	}
 
 	@OneToOne(targetEntity = Location.class)
@@ -154,7 +144,7 @@ public class Event {
 
 	public Event invite(User... invitees) {
 		for(User invitee : invitees){
-			this.users.add(invitee);
+			getInvitation().invite(invitee);
 		}
 		return this;
 	}
@@ -162,7 +152,7 @@ public class Event {
 	public Event invite(Iterable<User> invitees) {
 		Validate.notNull(invitees);
 		for(User invitee : invitees){
-			this.users.add(invitee);
+			getInvitation().invite(invitee);
 		}
 		return this;
 	}	
@@ -185,15 +175,6 @@ public class Event {
 	public Event on(Location location) {
 		this.location = location;
 		return this;
-	}
-	
-	
-	public Invitation sendInvitation() {
-		invitation = new Invitation(this);
-		for(User user : users){
-			invitation.invite(user);
-		}
-		return invitation;
 	}
 	
 	

@@ -171,15 +171,44 @@ public class UserTest {
 	}
 	
 	@Test @SuppressWarnings("deprecation")
-	public void should_record_response_in_invitation(){
+	public void should_record_response_yes_to_invitation(){
 		Event event = new Event(ID);
 		User user = new User(ID);
-		Invitation invitation = event.invite(user).sendInvitation();
+		event.invite(user);
+		Invitation invitation = event.getInvitation();
 		assertTrue(invitation.getUnresponded().contains(user));
 		assertFalse(invitation.getAccepted().contains(user));
 		user.respondTo(invitation).yes();
 		assertFalse(invitation.getUnresponded().contains(user));
 		assertTrue(invitation.getAccepted().contains(user));
+		assertTrue(user.getRespondedInvitations().contains(invitation));
+	}
+	
+	@Test @SuppressWarnings("deprecation")
+	public void should_record_response_no_to_invitation(){
+		Event event = new Event(ID);
+		User user = new User(ID);
+		event.invite(user);
+		Invitation invitation = event.getInvitation();
+		assertTrue(invitation.getUnresponded().contains(user));
+		assertFalse(invitation.getAccepted().contains(user));
+		user.respondTo(invitation).no();
+		assertFalse(invitation.getUnresponded().contains(user));
+		assertTrue(invitation.getDenied().contains(user));
+		assertTrue(user.getRespondedInvitations().contains(invitation));
+	}
+	
+	@Test @SuppressWarnings("deprecation")
+	public void should_record_response_maybe_to_invitation(){
+		Event event = new Event(ID);
+		User user = new User(ID);
+		event.invite(user);
+		Invitation invitation = event.getInvitation();
+		assertTrue(invitation.getUnresponded().contains(user));
+		assertFalse(invitation.getAccepted().contains(user));
+		user.respondTo(invitation).maybe();
+		assertFalse(invitation.getUnresponded().contains(user));
+		assertTrue(invitation.getMaybes().contains(user));
 		assertTrue(user.getRespondedInvitations().contains(invitation));
 	}
 }

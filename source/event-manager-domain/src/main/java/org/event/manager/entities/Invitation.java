@@ -25,7 +25,7 @@ public class Invitation {
 	@Deprecated
 	public Invitation() {
 		responses = LinkedHashMultimap.create();
-		unresponded = Sets.newHashSet();
+		setUnresponded(Sets.<User>newHashSet());
 	}
 
 	public Invitation(Event event) {
@@ -48,7 +48,14 @@ public class Invitation {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
-
+	public Invitation invite(Iterable<User> users) {
+		for(User user : users){			
+			user.invite(this);
+			getUnresponded().add(user);
+		}
+		return this;
+	}
+	
 	public Invitation invite(User user) {
 		user.invite(this);
 		getUnresponded().add(user);

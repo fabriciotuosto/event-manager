@@ -120,10 +120,10 @@ public class User implements Serializable {
 	@Deprecated
 	public User() {
 		super();
-		this.groups = Sets.newHashSet();
-		this.contacts = Sets.newHashSet();
-		this.pendingResponeInvitations = Sets.newHashSet();
-		this.respondedInvitations = Sets.newHashSet();
+		setGroups(Sets.<Group>newHashSet());
+		setContacts(Sets.<User>newHashSet());
+		setPendingResponeInvitations(Sets.<Invitation>newHashSet());
+		setRespondedInvitations(Sets.<Invitation>newHashSet());
 	}
 
 	/**
