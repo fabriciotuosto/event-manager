@@ -6,7 +6,7 @@
 	<artifactId>event-manager</artifactId>
 	<packaging>pom</packaging>
 	<name>Event Manager</name>
-	<version>${application.version}</version>
+	<version>1.0-SNAPSHOT</version>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>artifactory</id>
