@@ -91,13 +91,13 @@ public class User implements Serializable {
 		 * @return
 		 */
 		public UserBuilder withContacts(User... contacts) {
-			for(User contact : contacts){
+			for (User contact : contacts) {
 				this.contacts.add(contact);
 			}
 			return this;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param name
@@ -105,8 +105,7 @@ public class User implements Serializable {
 	 * @param password
 	 * @return
 	 */
-	public static UserBuilder newUser(String name, String email,
-			String password) {
+	public static UserBuilder newUser(String name, String email, String password) {
 		return new UserBuilder(name, email, password);
 	}
 
@@ -120,10 +119,10 @@ public class User implements Serializable {
 	@Deprecated
 	public User() {
 		super();
-		setGroups(Sets.<Group>newHashSet());
-		setContacts(Sets.<User>newHashSet());
-		setPendingResponeInvitations(Sets.<Invitation>newHashSet());
-		setRespondedInvitations(Sets.<Invitation>newHashSet());
+		setGroups(Sets.<Group> newHashSet());
+		setContacts(Sets.<User> newHashSet());
+		setPendingResponeInvitations(Sets.<Invitation> newHashSet());
+		setRespondedInvitations(Sets.<Invitation> newHashSet());
 	}
 
 	/**
@@ -140,7 +139,7 @@ public class User implements Serializable {
 	public User(Long id) {
 		this();
 		Validate.notNull(id);
-		Validate.isTrue(id.longValue() > 0,"Id must be positive");
+		Validate.isTrue(id.longValue() > 0, "Id must be positive");
 		setId(id);
 	}
 
@@ -205,7 +204,7 @@ public class User implements Serializable {
 
 	/**
 	 * @return the groups
-	 */ 
+	 */
 	@OneToMany
 	public Set<Group> getGroups() {
 		return groups;
@@ -244,7 +243,7 @@ public class User implements Serializable {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * @return the contacts
 	 */
@@ -277,7 +276,7 @@ public class User implements Serializable {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * @param contacts
 	 *            the contacts to set
@@ -294,7 +293,7 @@ public class User implements Serializable {
 			Set<Invitation> pendingResponeInvitations) {
 		this.pendingResponeInvitations = pendingResponeInvitations;
 	}
-	
+
 	public Set<Invitation> getRespondedInvitations() {
 		return respondedInvitations;
 	}
@@ -302,7 +301,7 @@ public class User implements Serializable {
 	public void setRespondedInvitations(Set<Invitation> respondedInvitations) {
 		this.respondedInvitations = respondedInvitations;
 	}
-	
+
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
@@ -318,14 +317,13 @@ public class User implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean equals = false;
-		if (obj instanceof User){
+		if (obj instanceof User) {
 			User other = (User) obj;
-			equals = this== obj || new EqualsBuilder()
-								.append(this.id, other.id).isEquals();		
+			equals = this == obj
+					|| new EqualsBuilder().append(this.id, other.id).isEquals();
 		}
 		return equals;
 	}
-
 
 	public InvitationResponse invite(Invitation invitation) {
 		pendingResponeInvitations.add(invitation);
@@ -336,11 +334,11 @@ public class User implements Serializable {
 		return new InvitationResponse(this, invitation);
 	}
 
-	public static class InvitationResponse{
+	public static class InvitationResponse {
 		private final User user;
 		private final Invitation invitation;
-		
-		private InvitationResponse(User user,Invitation invitation) {
+
+		private InvitationResponse(User user, Invitation invitation) {
 			this.user = user;
 			this.invitation = invitation;
 		}
@@ -352,14 +350,15 @@ public class User implements Serializable {
 		public InvitationResponse no() {
 			return with(Response.NO);
 		}
-		
+
 		public InvitationResponse maybe() {
 			return with(Response.MAYBE);
 		}
+
 		public InvitationResponse with(Response response) {
 			user.pendingResponeInvitations.remove(invitation);
 			user.respondedInvitations.add(invitation);
-			invitation.respond(user,response);
+			invitation.respond(user, response);
 			return this;
 		}
 	}
