@@ -290,6 +290,7 @@
 
 	<properties>
 		<!-- Application specific properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<application.version>1.0-SNAPSHOT</application.version>
 		<application.groupId>org.event.manager</application.groupId>
 		<!-- application frameworks versions -->
