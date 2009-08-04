@@ -38,10 +38,12 @@ public class UserManager {
 	HttpServletRequest request;
     
 	private final Repository dao;
-
+	private User user;
+	
 	@Inject
 	public UserManager(Repository dao,User user) {
 		this.dao = dao;
+		this.user = user;
 	}
 
 	@POST
@@ -53,7 +55,7 @@ public class UserManager {
                 of("name", name, "password", password);
 		String result = "succesful";
 		try {
-			User user = dao.findUniqueByNamedQuery
+			user = dao.findUniqueByNamedQuery
                     (User.FIND_BY_CREDENTIALS, params);
 			log.debug("getting user with id = {}", user.getId());
 			request.getSession().setAttribute("user", user);
