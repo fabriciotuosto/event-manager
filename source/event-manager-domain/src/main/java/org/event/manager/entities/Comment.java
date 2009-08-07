@@ -39,7 +39,7 @@ public class Comment {
 	@Deprecated
 	public Comment(Long id) {
 		Validate.notNull(id);
-		Validate.isTrue(id.longValue() > 0);
+		Validate.isTrue(id > 0);
 		setId(id);
 	}
 	public static CommentBuilder newComment(User commenter,String comment){

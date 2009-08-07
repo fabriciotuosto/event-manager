@@ -115,7 +115,7 @@ public class Invitation {
 		if (obj instanceof Invitation){
 			Invitation other = (Invitation) obj;
 			equals = new EqualsBuilder()
-								.append(this.event, other.event).isEquals();		
+					.append(this.event, other.event).isEquals();		
 		}
 		return equals;
 	}

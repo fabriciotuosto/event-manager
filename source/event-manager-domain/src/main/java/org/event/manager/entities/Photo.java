@@ -60,7 +60,7 @@ public class Photo {
 	@Deprecated
 	public Photo(Long id){
 		Validate.notNull(id, "Id must not be null");
-		Validate.isTrue(id.longValue() > 0,"Id must be positive");
+		Validate.isTrue(id > 0,"Id must be positive");
 		setId(id);
 	}
 	

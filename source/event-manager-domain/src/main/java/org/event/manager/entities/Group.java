@@ -1,6 +1,7 @@
 package org.event.manager.entities;
 
 import java.util.Set;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Group {
 	@Deprecated
 	public Group(Long id){
 		Validate.notNull(id);
-		Validate.isTrue(id.longValue() > 0);
+		Validate.isTrue(id > 0);
 		setId(id);
 	}
 
@@ -62,9 +63,7 @@ public class Group {
 	}
 
 	public Group add(User... users){
-		for(User user: users){
-			this.users.add(user);
-		}
+        add(Arrays.asList(users));
 		return this;
 	}
 
@@ -102,7 +101,7 @@ public class Group {
 		if (obj instanceof Group){
 			Group other = (Group) obj;
 			equals = this== obj || new EqualsBuilder()
-								.append(this.name, other.name).isEquals();		
+					.append(this.name, other.name).isEquals();		
 		}
 		return equals;	
 	}
@@ -124,9 +123,7 @@ public class Group {
 		}
 
 		public GroupBuilder with(User... users) {
-			for(User user : users){
-				this.users.add(user);
-			}
+			with(Arrays.asList(users));
 			return this;
 		}
 		

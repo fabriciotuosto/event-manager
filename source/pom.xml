@@ -63,7 +63,7 @@
 				<configuration>
 					<wtpversion>2.0</wtpversion>
 					<downloadSources>true</downloadSources>
-					<downloadJavaDoc>true</downloadJavaDoc>
+					<downloadJavadocs>true</downloadJavadocs>
 					<projectNameTemplate>${artifactId}-${version}</projectNameTemplate>
 				</configuration>
 			</plugin>

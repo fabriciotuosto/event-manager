@@ -29,7 +29,7 @@ public class Location {
 	@Deprecated
 	public Location(Long id) {
 		Validate.notNull(id);
-		Validate.isTrue(id.longValue() > 0);
+		Validate.isTrue(id > 0);
 		setId(id);
 	}
 

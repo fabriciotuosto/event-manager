@@ -2,6 +2,7 @@ package org.event.manager.entities;
 
 import java.util.Calendar;
 import java.util.Set;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class Event {
 	public Event(Long id) {
 		this();
 		Validate.notNull(id,"Must not be a null Id");
-		Validate.isTrue(id.longValue() > 0);
+		Validate.isTrue(id > 0);
 		setId(id);
 	}
 
@@ -166,9 +167,7 @@ public class Event {
 	}
 
 	public Event add(Photo... photos) {
-		for(Photo photo : photos){
-			this.photos.add(photo);
-		}
+        add(Arrays.asList(photos));
 		return this;
 	}
 
@@ -200,9 +199,7 @@ public class Event {
 		}
 
 		public EventBuilder invited(User... invited) {
-			for(User u : invited){
-				users.add(u);
-			}
+			invited(Arrays.asList(invited));
 			return this;
 		}
 
@@ -223,9 +220,7 @@ public class Event {
 		}		
 		
 		public EventBuilder with(Photo... photos) {
-			for(Photo photo : photos){
-				this.photos.add(photo);
-			}
+			with(Arrays.asList(photos));
 			return this;
 		}
 
@@ -240,9 +235,7 @@ public class Event {
 	}
 
 	public Event comment(Comment... comments) {
-		for(Comment coment: comments){
-			this.comments.add(coment);
-		}
+        comment(Arrays.asList(comments));
 		return this;
 	}
 

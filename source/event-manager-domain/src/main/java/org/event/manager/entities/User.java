@@ -2,6 +2,7 @@ package org.event.manager.entities;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,23 +80,41 @@ public class User implements Serializable {
 		 * @return
 		 */
 		public UserBuilder inGroup(Group... groups) {
+			inGroup(Arrays.asList(groups));
+			return this;
+		}
+		/**
+		 * 
+		 * @param groups
+		 * @return
+		 */
+		public UserBuilder inGroup(Iterable<Group> groups) {
 			for (Group group : groups) {
 				this.groups.add(group);
 			}
 			return this;
 		}
-
 		/**
 		 * 
 		 * @param contacts
 		 * @return
 		 */
 		public UserBuilder withContacts(User... contacts) {
+			withContacts(Arrays.asList(contacts));
+			return this;
+		}
+		
+		/**
+		 * 
+		 * @param contacts
+		 * @return
+		 */
+		public UserBuilder withContacts(Iterable<User> contacts) {
 			for (User contact : contacts) {
 				this.contacts.add(contact);
 			}
 			return this;
-		}
+		}		
 	}
 
 	/**
@@ -139,7 +158,7 @@ public class User implements Serializable {
 	public User(Long id) {
 		this();
 		Validate.notNull(id);
-		Validate.isTrue(id.longValue() > 0, "Id must be positive");
+		Validate.isTrue(id > 0, "Id must be positive");
 		setId(id);
 	}
 
@@ -225,9 +244,7 @@ public class User implements Serializable {
 	 * @return
 	 */
 	public User add(Group... groups) {
-		for (Group group : groups) {
-			this.groups.add(group);
-		}
+		add(Arrays.asList(groups));
 		return this;
 	}
 
@@ -257,21 +274,19 @@ public class User implements Serializable {
 	 * @param contacs
 	 * @return
 	 */
-	public User addContact(User... contacs) {
-		for (User contact : contacs) {
-			this.contacts.add(contact);
-		}
+	public User addContact(User... contacts) {
+        addContact(Arrays.asList(contacts));
 		return this;
 	}
 
 	/**
 	 * 
-	 * @param contacs
+	 * @param contacts
 	 * @return
 	 */
-	public User addContact(Iterable<User> contacs) {
-		Validate.notNull(contacs);
-		for (User contact : contacs) {
+	public User addContact(Iterable<User> contacts) {
+		Validate.notNull(contacts);
+		for (User contact : contacts) {
 			this.contacts.add(contact);
 		}
 		return this;
