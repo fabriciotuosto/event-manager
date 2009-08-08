@@ -28,8 +28,8 @@ public final class Utils {
 
 	/**
 	 * 
-	 * @param adress
-	 * @return
+	 * @param adress to be validate
+	 * @return true if adress is an email adress
 	 */
     public static boolean isEmailAdressValid(String adress){
     	return validateWithPattern(getEmailPatter(), adress);
@@ -37,15 +37,15 @@ public final class Utils {
 
     /**
      * 
-     * @param adress
-     * @return
+     * @param adress to be validate
+     * @return true if address is an image http link
      */
     public static boolean isImageLinkValid(String adress){
         return validateWithPattern(getImageLinkPattern(), adress);
     }
     
     private static boolean validateWithPattern(Pattern pattern,String string){
-    	return string == null ? false : pattern.matcher(string).matches();
+    	return string != null && pattern.matcher(string).matches();
     }
     
     // Idiom to lazy load patterns matching so that there is not unnecessary creation
@@ -58,7 +58,7 @@ public final class Utils {
     }
 
     private static class ImageLinkPatternHolder {
-    	private static final Pattern LINK_PATTERN = Pattern.compile("^http:\\/\\/.+\\/.+\\.(png|jpg|gif|jpeg)$");
+    	private static final Pattern LINK_PATTERN = Pattern.compile("^http:\\//.+\\/.+\\.(png|jpg|gif|jpeg)$");
 	}
     
     private static class EmailPatternHolder {

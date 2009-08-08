@@ -60,14 +60,12 @@ public class CommentComparators {
     }
 
 
-    @SuppressWarnings("deprecation")
     @Test(expected = IllegalArgumentException.class)
     public void should_throw_exception_second_comments() {
         Ordering<Comment> commentComp = Comment.USER_NAME_ASCENDING_COMPARATOR;
         commentComp.compare(new Comment(), null);
     }
 
-    @SuppressWarnings("deprecation")
     @Test(expected = IllegalArgumentException.class)
     public void should_throw_exception_null_users() {
         Ordering<Comment> commentComp = Comment.USER_NAME_ASCENDING_COMPARATOR;

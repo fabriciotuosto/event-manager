@@ -17,20 +17,6 @@
 	<name>Event Manager Domain</name>
 
 	<dependencies>
-		<!-- Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-			<type>jar</type>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>${hibernate.version}</version>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>com.google.code.liquidform</groupId>
 			<artifactId>liquidform.jpa</artifactId>
@@ -40,13 +26,6 @@
 			<groupId>${application.groupId}</groupId>
 			<artifactId>event-manager-utils</artifactId>
 			<version>${application.version}</version>
-		</dependency>
-		<!-- Database Drivers -->
-		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.7</version>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

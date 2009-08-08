@@ -19,21 +19,18 @@ public class EventTest {
 	private static final Long ID = 10L;
 	
 	@Test
-	@SuppressWarnings("deprecation")
 	public void create_event_with_id(){
 		Event event = new Event(ID);
 		assertNotNull(event);
 		assertEquals(ID, event.getId());
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	@Test(expected=IllegalArgumentException.class)
 	public void should_not_create_user_id_null(){
 		new Event(null);
 		fail();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test(expected=IllegalArgumentException.class)	
 	public void should_not_create_user_id_negative(){
 		new Event(-10L);
@@ -41,7 +38,6 @@ public class EventTest {
 	}
 	
 	@Test
-	@SuppressWarnings("deprecation")
 	public void event_equals(){
 		Event first = new Event(ID);
 		Event second = new Event(ID);
@@ -51,7 +47,6 @@ public class EventTest {
 	}
 	
 	@Test
-	@SuppressWarnings("deprecation")
 	public void events_hashCode(){
 		Event first = new Event(ID);
 		Event second = new Event(ID);
