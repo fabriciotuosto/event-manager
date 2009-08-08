@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 /**
  * Used by Guice configuration in order to tell Guice that any method that
  * contains this annotation must be intercept calls with
- * {@link TransactionInterceptor}.
+ * {@link org.event.manager.repository.interceptors.TransactionInterceptor}.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.METHOD })
+@Target({ElementType.METHOD})
 public @interface Transactional {
 
 }

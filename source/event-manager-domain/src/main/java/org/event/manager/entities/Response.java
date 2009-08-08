@@ -4,8 +4,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public enum Response {
-	YES,
-	NO,
-	MAYBE;
+    YES,
+    NO,
+    MAYBE
 
 }
