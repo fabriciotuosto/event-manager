@@ -13,7 +13,7 @@
 	<artifactId>event-manager-web</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Event Manager Web</name>
+	<name>Event Manager UI</name>
    
 	<dependencies>
 		<!-- Business logic dependency -->
@@ -21,12 +21,7 @@
 			<groupId>${application.groupId}</groupId>
 			<artifactId>event-manager-domain</artifactId>
 			<version>${application.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${application.groupId}</groupId>
-			<artifactId>event-manager-repository</artifactId>
-			<version>${application.version}</version>
-		</dependency>		
+		</dependency>	
 		<!-- Web Container dependencies -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -34,55 +29,7 @@
 			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- core library -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>${resteasy.version}</version>
-			<exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                </exclusion>
-            </exclusions>
-		</dependency>
-		<!-- optional modules -->
-		<!-- JAXB support -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxb-provider</artifactId>
-			<version>${resteasy.version}</version>
-		</dependency>
-		<!-- multipart/form-data and multipart/mixed support  -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-multipart-provider</artifactId>
-			<version>${resteasy.version}</version>
-		</dependency>
-		<!--
-			Resteasy Server Cache <dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-cache-core</artifactId>
-			<version>${resteasy.version}</version> </dependency>
-		-->
-		<!-- Guice integration -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-guice</artifactId>
-			<version>${resteasy.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.guice</groupId>
-                    <artifactId>guice</artifactId>
-                </exclusion>
-            </exclusions>
-		</dependency>
 
-		<dependency>
-            <groupId>com.google.code.guice</groupId>
-            <artifactId>guice-servlet</artifactId>
-            <version>${guice.version}</version>
-        </dependency>
 	</dependencies>
 	<build>
 		<finalName>event-manager</finalName>

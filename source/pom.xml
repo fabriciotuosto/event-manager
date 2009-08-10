@@ -285,7 +285,8 @@
         <module>event-manager-utils</module>
         <module>event-manager-repository</module>
         <module>event-manager-domain</module>
-        <module>event-manager-web</module>
+        <module>event-manager-services</module>
+		<module>event-manager-web</module>
     </modules>
 
     <properties>
