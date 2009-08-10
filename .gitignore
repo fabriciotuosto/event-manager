@@ -5,3 +5,5 @@ agitar
 target
 **/bin
 *~
+*.iml
+*.ipr
