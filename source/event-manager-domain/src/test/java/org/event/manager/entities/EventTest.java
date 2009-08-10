@@ -2,10 +2,10 @@ package org.event.manager.entities;
 
 import com.google.common.collect.Sets;
 import org.event.manager.TestUtils;
-import static org.junit.Assert.*;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.*;
 
