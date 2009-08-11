@@ -194,7 +194,7 @@ public class Repository {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
-		return this.<E>findByQuery(em.createQuery(query), params, ResultStrategy.SINGLE);
+		return this.<E>findByQuery(em.createQuery(query), params, ResultStrategyEnum.SINGLE);
 	}
 	
 	/**
@@ -209,7 +209,7 @@ public class Repository {
 		Validate.notNull(query);
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
-		return this.<E>findByQuery(query, params, ResultStrategy.SINGLE);
+		return this.<E>findByQuery(query, params, ResultStrategyEnum.SINGLE);
 	}
 	
 	/**
@@ -225,7 +225,7 @@ public class Repository {
 		// workaround for bug in javac compiler
 		// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
 		return this.<E> findByQuery(em.createNamedQuery(query), params,
-				ResultStrategy.SINGLE);
+				ResultStrategyEnum.SINGLE);
 	}
 
    
@@ -263,7 +263,7 @@ public class Repository {
 	 */
 	@PerformanceLog
 	public <E> List<E> findByQuery(Query query, Map<String, Object> params) {
-		return findByQuery(query, params, ResultStrategy.LIST);
+		return findByQuery(query, params, ResultStrategyEnum.LIST);
 	}
 
 	/**
@@ -274,7 +274,7 @@ public class Repository {
 	 */
 	@PerformanceLog
 	public <E> List<E> findByQuery(Query query) {
-		return findByQuery(query, ResultStrategy.LIST);
+		return findByQuery(query, ResultStrategyEnum.LIST);
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class Repository {
 	 * @author fabricio This enum facilities picking the kind of result the user
 	 *         wants from making a query to the {@link EntityManager}
 	 */
-	public static enum ResultStrategy {
+	public static enum ResultStrategyEnum implements ResultStrategy{
 		SINGLE {
 			@Override
 			@SuppressWarnings("unchecked")
