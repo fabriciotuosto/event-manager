@@ -7,6 +7,9 @@ import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,12 +19,21 @@ import java.util.Set;
 @XmlRootElement
 public class Invitation {
 
-    private SetMultimap<Response, User> responses;
+	private Long id;
+	private SetMultimap<Response, User> responses;
     private Set<User> unresponded;
-
-
     private Event event;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
     protected Invitation() {
         responses = LinkedHashMultimap.create();
         setUnresponded(Sets.<User>newHashSet());
