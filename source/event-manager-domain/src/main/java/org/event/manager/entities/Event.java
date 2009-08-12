@@ -43,7 +43,7 @@ public class Event {
         return new EventBuilder(location, time);
     }
 
-    protected Event(Long id) {
+    public Event(Long id) {
         this();
         Validate.notNull(id, "Must not be a null Id");
         Validate.isTrue(id > 0);
@@ -135,10 +135,7 @@ public Set<Comment> getComments() {
     }
 
     public Event invite(User... invitees) {
-        for (User invitee : invitees) {
-            getInvitation().invite(invitee);
-        }
-        return this;
+       return invite(Arrays.asList(invitees));
     }
 
     public Event invite(Iterable<User> invitees) {
@@ -158,8 +155,7 @@ public Set<Comment> getComments() {
     }
 
     public Event add(Photo... photos) {
-        add(Arrays.asList(photos));
-        return this;
+    	return add(Arrays.asList(photos));
     }
 
     public Event on(Location location) {
@@ -191,8 +187,7 @@ public Set<Comment> getComments() {
         }
 
         public EventBuilder invited(User... invited) {
-            invited(Arrays.asList(invited));
-            return this;
+        	return invited(Arrays.asList(invited));
         }
 
         public EventBuilder invited(Iterable<User> invited) {
@@ -212,8 +207,7 @@ public Set<Comment> getComments() {
         }
 
         public EventBuilder with(Photo... photos) {
-            with(Arrays.asList(photos));
-            return this;
+            return with(Arrays.asList(photos));
         }
 
     }
@@ -227,8 +221,7 @@ public Set<Comment> getComments() {
     }
 
     public Event comment(Comment... comments) {
-        comment(Arrays.asList(comments));
-        return this;
+    	return comment(Arrays.asList(comments));        
 	}
 
 

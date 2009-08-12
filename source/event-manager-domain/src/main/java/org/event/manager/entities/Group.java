@@ -57,8 +57,17 @@ public class Group {
     }
 
     public Group add(User... users) {
-        add(Arrays.asList(users));
-        return this;
+    	return add(Arrays.asList(users));
+    }
+    
+    public Group remove(Iterable<User> users){
+    	for(User user : users){
+    		this.users.remove(user);
+    	}
+    	return this;
+    }
+    public Group remove(User... users){
+    	return remove(Arrays.asList(users));
     }
 
     public Group add(Iterable<User> users) {
@@ -117,8 +126,7 @@ public class Group {
         }
 
         public GroupBuilder with(User... users) {
-            with(Arrays.asList(users));
-            return this;
+        	return with(Arrays.asList(users));
         }
 
         public GroupBuilder with(Iterable<User> users) {

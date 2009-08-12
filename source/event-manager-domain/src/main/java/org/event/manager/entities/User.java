@@ -221,8 +221,7 @@ public class User implements Serializable {
      * @return
      */
     public User add(Group... groups) {
-        add(Arrays.asList(groups));
-        return this;
+        return add(Arrays.asList(groups));
     }
 
     /**
@@ -250,8 +249,7 @@ public class User implements Serializable {
      * @return
      */
     public User addContact(User... contacts) {
-        addContact(Arrays.asList(contacts));
-        return this;
+    	return addContact(Arrays.asList(contacts));
     }
 
     /**
