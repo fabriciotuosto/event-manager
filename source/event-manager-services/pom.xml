@@ -77,9 +77,8 @@
                 </exclusion>
             </exclusions>
 		</dependency>
-
 		<dependency>
-            <groupId>com.google.code.guice</groupId>
+            <groupId>com.google.inject.extensions</groupId>
             <artifactId>guice-servlet</artifactId>
             <version>${guice.version}</version>
         </dependency>

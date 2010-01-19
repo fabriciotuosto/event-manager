@@ -190,36 +190,10 @@
     </reporting>
     <repositories>
         <repository>
-            <id>central</id>
-            <url>http://elendir.dyndns.org/artifactory/repo</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>snapshots</id>
-            <url>http://elendir.dyndns.org/artifactory/repo</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
+            <id>jboss</id>
+            <url>http://repository.jboss.com/maven2/</url>
         </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <url>http://elendir.dyndns.org/artifactory/plugins-releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>snapshots</id>
-            <url>http://elendir.dyndns.org/artifactory/plugins-snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
     <dependencies>
         <!-- Utility and commons -->
         <dependency>
@@ -239,10 +213,10 @@
         </dependency>
         <!-- Guice -->
         <dependency>
-            <groupId>com.google.code.guice</groupId>
+            <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>${guice.version}</version>
-        </dependency>
+        </dependency>  
         <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
@@ -306,7 +280,7 @@
         <google-collections.version>1.0-rc2</google-collections.version>
         <hibernate.version>3.4.0.GA</hibernate.version>
         <jpa.version>1.0</jpa.version>
-        <guice.version>2.0.1</guice.version>
+        <guice.version>2.0</guice.version>
         <aopalliance.version>1.0</aopalliance.version>
     </properties>
 </project>
