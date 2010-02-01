@@ -23,6 +23,8 @@ public class CommentComparators {
     @Before
     @SuppressWarnings("deprecation")
     public void initializeTest() {
+    	
+    	
         User user = new User(10L);
         first = Comment.newComment(user, "Should be first test").build();
         Calendar yesterday = Calendar.getInstance();

@@ -61,9 +61,6 @@ public class GroupTest {
 		Group group = new Group();
 		User first = new User(10L);
 		User second = new User(11L);
-		assertNotNull(group);
-		assertNotNull(group.getUsers());
-		assertTrue(group.getUsers().isEmpty());
 		group.add(first,second);
 		assertEquals(2,group.getUsers().size());
 	}
@@ -74,9 +71,6 @@ public class GroupTest {
 		Group group = new Group();
 		User first = new User(10L);
 		User second = new User(11L);
-		assertNotNull(group);
-		assertNotNull(group.getUsers());
-		assertTrue(group.getUsers().isEmpty());
 		group.add(Arrays.asList(first,second));
 		assertEquals(2,group.getUsers().size());
 	}	

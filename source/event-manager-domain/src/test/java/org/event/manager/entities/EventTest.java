@@ -55,8 +55,6 @@ public class EventTest {
     public void invite_user() {
         User invitee = new User(ID);
         Event event = new Event(ID).invite(invitee);
-        assertNotNull(event.getInvitation().getUnresponded());
-        assertFalse(event.getInvitation().getUnresponded().isEmpty());
         assertSame(invitee, event.getInvitation().getUnresponded().iterator().next());
     }
 
@@ -68,11 +66,20 @@ public class EventTest {
         User invitee3 = new User(50L);
         List<User> users = Arrays.asList(invitee, invitee2, invitee3);
         Event event = new Event(ID);
-        assertNotNull(event.getInvitation().getUnresponded());
-        assertTrue(event.getInvitation().getUnresponded().isEmpty());
         event.invite(users);
         assertFalse(event.getInvitation().getUnresponded().isEmpty());
         assertEquals(2, event.getInvitation().getUnresponded().size());
+    }
+    
+    @Test
+    @SuppressWarnings("deprecation")
+    public void should_contain_invitee_user(){
+        User invitee = new User(ID);
+        User invitee2 = new User(ID);
+        User invitee3 = new User(50L);
+        List<User> users = Arrays.asList(invitee, invitee2, invitee3);
+        Event event = new Event(ID);
+        event.invite(users);
         assertTrue(event.getInvitation().getUnresponded().contains(invitee));
         assertTrue(event.getInvitation().getUnresponded().contains(invitee2));
     }
@@ -91,7 +98,6 @@ public class EventTest {
         Location location = new Location(ID);
         Calendar date = Calendar.getInstance();
         Event event = Event.newEvent(location, date).build();
-        assertNotNull(event);
         assertSame(location, event.getLocation());
     }
 
@@ -119,7 +125,6 @@ public class EventTest {
         Photo first = new Photo(ID);
         Photo sec = new Photo(11L);
         Event event = new Event(ID).add(first, sec);
-        assertFalse(event.getPhotos().isEmpty());
         assertEquals(2, event.getPhotos().size());
     }
 
@@ -129,7 +134,6 @@ public class EventTest {
         Photo first = new Photo(ID);
         Photo sec = new Photo(11L);
         Event event = new Event(ID).add(Arrays.asList(first, sec));
-        assertFalse(event.getPhotos().isEmpty());
         assertEquals(2, event.getPhotos().size());
     }
 
@@ -143,7 +147,6 @@ public class EventTest {
         Event event = Event.newEvent(loc, time)
                 .with(photo, photo2)
                 .build();
-        assertFalse(event.getPhotos().isEmpty());
         assertEquals(2, event.getPhotos().size());
     }
 
@@ -157,7 +160,6 @@ public class EventTest {
         Event event = Event.newEvent(loc, time)
                 .with(Arrays.asList(photo, photo2))
                 .build();
-        assertFalse(event.getPhotos().isEmpty());
         assertEquals(2, event.getPhotos().size());
     }
 
@@ -175,10 +177,23 @@ public class EventTest {
                 .with(photo)
                 .build();
         assertEquals(2, event.getInvitation().getUnresponded().size());
-        assertFalse(event.getPhotos().isEmpty());
         assertSame(photo, event.getPhotos().iterator().next());
     }
-
+    
+    @Test
+    @SuppressWarnings("deprecation")
+    public void to() {
+        Calendar time = Calendar.getInstance();
+        Location loc = new Location(ID);
+        User a = new User(ID);
+        User b = new User(50L);
+        Photo photo = null;
+        Event event = Event.newEvent(loc, time)
+                .invited(a, b)
+                .with(photo)
+                .build();
+        assertSame(photo, event.getPhotos().iterator().next());
+    }
     @Test
     @SuppressWarnings("deprecation")
     public void should_add_comments_iterables() {
@@ -186,7 +201,6 @@ public class EventTest {
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
         Calendar today = Calendar.getInstance();
-        assertFalse(yesterday.equals(today));
 
         Comment first = Comment.newComment(user, "").build();
         first.setWhen(yesterday);
@@ -207,8 +221,6 @@ public class EventTest {
         Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
         Calendar today = Calendar.getInstance();
-        assertFalse(yesterday.equals(today));
-
         Comment first = Comment.newComment(user, "").build();
         first.setWhen(yesterday);
 

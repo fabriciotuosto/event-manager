@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 import java.net.URI;
 
+import org.event.manager.TestUtils;
 import org.junit.Test;
 
 
@@ -72,15 +73,13 @@ public class PhotoTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void user_equals(){
+		
 		Photo first = new Photo(ID);
 		Photo second = new Photo(ID);
 		Photo third = new Photo(ID);
 		Object object = new Object();
-		assertFalse(first.equals(object));
-		assertTrue(first.equals(second));
-		assertTrue(second.equals(third));
-		assertTrue(first.equals(third));
-		assertTrue(first.equals(first));
+		
+		TestUtils.equalsTest(first, second, third, object);
 	}
 		
 	@Test
